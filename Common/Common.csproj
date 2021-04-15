@@ -332,7 +332,6 @@
     <Compile Include="Clients\ModelAccessClient.cs" />
     <Compile Include="Clients\NetworkModelGdaClient.cs" />
     <Compile Include="Clients\TopologyAnalyzerClient.cs" />
-    <Compile Include="Clients\TopologyModelAccessClient.cs" />
     <Compile Include="Clients\WcfServiceFabricClientBase.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ExecutionReport.cs" />
@@ -345,7 +344,6 @@
     <Compile Include="Logger\IServiceEventTracing.cs" />
     <Compile Include="Logger\LogLevel.cs" />
     <Compile Include="ModelManagerInterfaces\IModelAccessContract.cs" />
-    <Compile Include="ModelManagerInterfaces\ITopologyModelAccessContract.cs" />
     <Compile Include="NetworkModelService\EnumDescs.cs" />
     <Compile Include="NetworkModelService\Enums.cs" />
     <Compile Include="NetworkModelService\GenericDataAccess\Association.cs" />

@@ -27,11 +27,6 @@ namespace Common.Clients
 			return clientFactory.CreateClient<ModelAccessClient, IModelAccessContract>(uri, ServiceType.STATEFUL_SERVICE);
 		}
 
-		public async Task<ExecutionReport> GetCurrentModel()
-		{
-			return await InvokeWithRetryAsync(client => client.Channel.GetCurrentModel());
-		}
-
 		public async Task<ExecutionReport> GetOpenDSSScript()
 		{
 			return await InvokeWithRetryAsync(client => client.Channel.GetOpenDSSScript());

@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
-using ModelManagerImplementation.LoadFlowModelAccess;
 using Common.ModelManagerInterfaces;
 using ModelManagerImplementation.ModelAccess;
 
@@ -25,7 +24,6 @@ namespace ModelManagerService
 		{
 			get { return logger ?? (logger = CloudLoggerFactory.GetLogger()); }
 		}
-		private readonly ITopologyModelAccessContract topologyModelAccess;
 		public ModelManagerService(StatefulServiceContext context)
 			: base(context)
 		{
@@ -44,13 +42,6 @@ namespace ModelManagerService
 			//return new List<ServiceReplicaListener>();
 			return new List<ServiceReplicaListener>
 			{
-				new ServiceReplicaListener(context =>
-				{
-					return new WcfCommunicationListener<ITopologyModelAccessContract>(context,
-																					  new TopologyModelAccess(StateManager),
-																					  WcfUtility.CreateTcpListenerBinding(),
-																					  "TopologyModelAccessEndpoint");
-				}, "TopologyModelAccessEndpoint"),
 				new ServiceReplicaListener(context =>
 				{
 					return new WcfCommunicationListener<IModelAccessContract>(context,

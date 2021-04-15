@@ -10,12 +10,7 @@ namespace Common
 	{
 		public const string NetworkModelVersionDictionary = "NetworkModelVersionDictionary";
 
-		public const string TerminalDictioary = "TerminalDictionary";
-		public const string NodeDictionary = "NodeDictionary";
-		public const string SwitchDictionary = "SwitchDictionary";
-		public const string BranchDictionary = "BranchesDictionary";
-		public const string SourcesDictionary = "SourcesDictionary";
-		public const string OtherElementDictionary = "OtherElementDictionary";
+		public const string NetworkModelDictinoary = "NetworkModelDictinoary";
 
 		public const string TopologyResultDictionary = "TopologyResultDictionary";
 	}

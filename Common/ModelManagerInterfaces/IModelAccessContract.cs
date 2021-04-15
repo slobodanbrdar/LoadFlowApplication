@@ -12,9 +12,6 @@ namespace Common.ModelManagerInterfaces
 	public interface IModelAccessContract : IService
 	{
 		[OperationContract]
-		Task<ExecutionReport> GetCurrentModel();
-
-		[OperationContract]
 		Task<ExecutionReport> InitializeTopology();
 
 		[OperationContract]

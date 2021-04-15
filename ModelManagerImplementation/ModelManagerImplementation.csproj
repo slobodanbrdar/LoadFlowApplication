@@ -102,7 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GDAHelper.cs" />
-    <Compile Include="LoadFlowModelAccess\TopologyModelAccess.cs" />
     <Compile Include="ModelAccess\ModelAccessProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

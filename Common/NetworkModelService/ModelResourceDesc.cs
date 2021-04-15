@@ -191,6 +191,8 @@ namespace Common.NetworkModelService
 		/// </summary>
 		public List<ModelCode> OtherElements { get; set; }
 
+
+
 		public HashSet<ModelCode> AllModelCodes
 		{
 			get { return allModelCodes; }
@@ -354,6 +356,8 @@ namespace Common.NetworkModelService
 
 				OtherElements.Add(GetModelCodeFromType(element));
 			}
+
+			
 		}
 
 		/// <summary>

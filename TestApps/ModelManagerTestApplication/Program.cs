@@ -17,7 +17,6 @@ namespace ModelManagerTestApplication
 	public class Program
 	{
 		public static IModelAccessContract ModelAccessContract { get { return ModelAccessClient.CreateClient(); } }
-		public static ITopologyModelAccessContract TopologyModelAccessContract { get { return TopologyModelAccessClient.CreateClient(); } }
 
 		public static ILoadFlowSolver LoadFlowSolverContract { get { return LoadFlowSolverClient.CreateClient(); } }
 		static async Task Main(string[] args)
@@ -32,27 +31,17 @@ namespace ModelManagerTestApplication
 
 				if (response == "1")
 				{
-					executionReport = await ModelAccessContract.GetCurrentModel();
+					executionReport = await ModelAccessContract.InitializeTopology();
 
 					Console.WriteLine($"Execution status: {executionReport.Status}. Message: {executionReport.Message}");
 				}
 				else if (response == "2")
 				{
-					executionReport = await ModelAccessContract.InitializeTopology();
-
-					Console.WriteLine($"Execution status: {executionReport.Status}. Message: {executionReport.Message}");
-				}
-				else if (response == "3")
-				{
-					TopologyResult topologyResult = await TopologyModelAccessContract.GetTopologyResult();
-				}
-				else if (response == "4")
-				{
 					executionReport = await ModelAccessContract.GetOpenDSSScript();
 
 					Console.WriteLine($"Execution status: {executionReport.Status}. Message:\n{executionReport.Message}");
 				}
-				else if (response == "5")
+				else if (response == "3")
 				{
 					await LoadFlowSolverContract.SolveLoadFlow();
 				}
@@ -66,11 +55,9 @@ namespace ModelManagerTestApplication
 		private static void PrintMenu()
 		{
 			Console.WriteLine("\nChoose tests type:");
-			Console.WriteLine("\t1) Get current model");
-			Console.WriteLine("\t2) Initialize topology");
-			Console.WriteLine("\t3) Get topology");
-			Console.WriteLine("\t4) Get Open Dss Script");
-			Console.WriteLine("\t5) Solve load flow");
+			Console.WriteLine("\t1) Initialize topology");
+			Console.WriteLine("\t2) Get Open Dss Script");
+			Console.WriteLine("\t3) Solve load flow");
 			Console.WriteLine("\tq) Quit");
 		}
 	}
