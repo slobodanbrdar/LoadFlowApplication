@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/LoadFlowApplication" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="LoadFlowSolver_PartitionCount" Value="1" />
+    <Parameter Name="LoadFlowSolver_MinReplicaSetSize" Value="1" />
+    <Parameter Name="LoadFlowSolver_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="ModelManagerService_PartitionCount" Value="1" />
+    <Parameter Name="ModelManagerService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="ModelManagerService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="TopologyAnalyzerService_InstanceCount" Value="1" />
+    <Parameter Name="NMSGdaService_PartitionCount" Value="1" />
+    <Parameter Name="NMSGdaService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="NMSGdaService_TargetReplicaSetSize" Value="1" />
+  </Parameters>
+</Application>
