@@ -1,7 +1,7 @@
 ﻿<delta id="0">
   <operations>
     <operation type="insert">
-      <ResourceDescriptions count="43">
+      <ResourceDescriptions count="58">
         <ResourceDescription>
           <id gid="0x00000001ffffffff" type="BASEVOLTAGE" />
           <Properties>
@@ -39,13 +39,45 @@
         <ResourceDescription>
           <id gid="0x00000002fffffffd" type="CONNECTIVITYNODE" />
           <Properties>
+            <Property id="IDOBJ_MRID" value="CN_11" />
+            <Property id="IDOBJ_NAME" value="CN_11" />
+            <Property id="IDOBJ_ALIASNAME" value="ConnectivityNode11" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000002fffffffc" type="CONNECTIVITYNODE" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="CN_12" />
+            <Property id="IDOBJ_NAME" value="CN_12" />
+            <Property id="IDOBJ_ALIASNAME" value="ConnectivityNode12" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000002fffffffb" type="CONNECTIVITYNODE" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="CN_13" />
+            <Property id="IDOBJ_NAME" value="CN_13" />
+            <Property id="IDOBJ_ALIASNAME" value="ConnectivityNode13" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000002fffffffa" type="CONNECTIVITYNODE" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="CN_14" />
+            <Property id="IDOBJ_NAME" value="CN_14" />
+            <Property id="IDOBJ_ALIASNAME" value="ConnectivityNode14" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000002fffffff9" type="CONNECTIVITYNODE" />
+          <Properties>
             <Property id="IDOBJ_MRID" value="CN_2" />
             <Property id="IDOBJ_NAME" value="CN_2" />
             <Property id="IDOBJ_ALIASNAME" value="ConnectivityNode2" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000002fffffffc" type="CONNECTIVITYNODE" />
+          <id gid="0x00000002fffffff8" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="CN_3" />
             <Property id="IDOBJ_NAME" value="CN_3" />
@@ -53,7 +85,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000002fffffffb" type="CONNECTIVITYNODE" />
+          <id gid="0x00000002fffffff7" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="CN_4" />
             <Property id="IDOBJ_NAME" value="CN_4" />
@@ -61,7 +93,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000002fffffffa" type="CONNECTIVITYNODE" />
+          <id gid="0x00000002fffffff6" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="CN_5" />
             <Property id="IDOBJ_NAME" value="CN_5" />
@@ -69,7 +101,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000002fffffff9" type="CONNECTIVITYNODE" />
+          <id gid="0x00000002fffffff5" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="CN_6" />
             <Property id="IDOBJ_NAME" value="CN_6" />
@@ -77,7 +109,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000002fffffff8" type="CONNECTIVITYNODE" />
+          <id gid="0x00000002fffffff4" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="CN_7" />
             <Property id="IDOBJ_NAME" value="CN_7" />
@@ -85,7 +117,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000002fffffff7" type="CONNECTIVITYNODE" />
+          <id gid="0x00000002fffffff3" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="CN_8" />
             <Property id="IDOBJ_NAME" value="CN_8" />
@@ -93,7 +125,7 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
-          <id gid="0x00000002fffffff6" type="CONNECTIVITYNODE" />
+          <id gid="0x00000002fffffff2" type="CONNECTIVITYNODE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="CN_9" />
             <Property id="IDOBJ_NAME" value="CN_9" />
@@ -140,6 +172,19 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
+          <id gid="0x00000003fffffffc" type="ENERGYCONSUMER" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="EC_4" />
+            <Property id="IDOBJ_NAME" value="EC_4" />
+            <Property id="IDOBJ_ALIASNAME" value="EnergyConsumer4" />
+            <Property id="CONDEQ_BASVOLTAGE" value="0x00000001fffffffe" />
+            <Property id="ENERGYCONSUMER_GROUNDED" value="D" />
+            <Property id="ENERGYCONSUMER_PHASECONNECTION" value="D" />
+            <Property id="ENERGYCONSUMER_PFIXED" value="500000" />
+            <Property id="ENERGYCONSUMER_PFIXEDPCT" value="88" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
           <id gid="0x00000004ffffffff" type="ENERGYSOURCE" />
           <Properties>
             <Property id="IDOBJ_MRID" value="ES_1" />
@@ -152,6 +197,25 @@
             <Property id="ENERGYSOURCE_X" value="0.205623" />
             <Property id="ENERGYSOURCE_X0" value="0.1961452" />
             <Property id="ENERGYSOURCE_XN" value="0.084721" />
+            <Property id="ENERGYSOURCE_ACTIVEPOWER" value="2.5E+07" />
+            <Property id="ENERGYSOURCE_NOMINALVOLTAGE" value="115000" />
+            <Property id="ENERGYSOURCE_VOLTAGEANGLE" value="0" />
+            <Property id="ENERGYSOURCE_VOLTAGEMAGNITUDE" value="115000" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000004fffffffe" type="ENERGYSOURCE" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="ES_2" />
+            <Property id="IDOBJ_NAME" value="ES_2" />
+            <Property id="IDOBJ_ALIASNAME" value="EnergySource2" />
+            <Property id="CONDEQ_BASVOLTAGE" value="0x00000001ffffffff" />
+            <Property id="ENERGYSOURCE_R" value="4.12" />
+            <Property id="ENERGYSOURCE_R0" value="3.33" />
+            <Property id="ENERGYSOURCE_RN" value="7.5" />
+            <Property id="ENERGYSOURCE_X" value="1.205623" />
+            <Property id="ENERGYSOURCE_X0" value="2.1961453" />
+            <Property id="ENERGYSOURCE_XN" value="3.084721" />
             <Property id="ENERGYSOURCE_ACTIVEPOWER" value="2.5E+07" />
             <Property id="ENERGYSOURCE_NOMINALVOLTAGE" value="115000" />
             <Property id="ENERGYSOURCE_VOLTAGEANGLE" value="0" />
@@ -292,6 +356,42 @@
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
+          <id gid="0x00000009fffffffb" type="ACLINESEGMENT" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="ACL_5" />
+            <Property id="IDOBJ_NAME" value="ACL_5" />
+            <Property id="IDOBJ_ALIASNAME" value="ACLineSegment5" />
+            <Property id="CONDEQ_BASVOLTAGE" value="0x00000001fffffffe" />
+            <Property id="CONDUCTOR_LENGTH" value="25000" />
+            <Property id="ACLINESEGMENT_X" value="1.20895481" />
+            <Property id="ACLINESEGMENT_X0" value="5.065916" />
+            <Property id="ACLINESEGMENT_R" value="3.0874455" />
+            <Property id="ACLINESEGMENT_R0" value="2.02123046" />
+            <Property id="ACLINESEGMENT_BCH" value="-1.21" />
+            <Property id="ACLINESEGMENT_B0CH" value="4.11" />
+            <Property id="ACLINESEGMENT_GCH" value="-0.11" />
+            <Property id="ACLINESEGMENT_G0CH" value="2.79841" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000009fffffffa" type="ACLINESEGMENT" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="ACL_6" />
+            <Property id="IDOBJ_NAME" value="ACL_6" />
+            <Property id="IDOBJ_ALIASNAME" value="ACLineSegment6" />
+            <Property id="CONDEQ_BASVOLTAGE" value="0x00000001fffffffe" />
+            <Property id="CONDUCTOR_LENGTH" value="25000" />
+            <Property id="ACLINESEGMENT_X" value="1.20895481" />
+            <Property id="ACLINESEGMENT_X0" value="5.065916" />
+            <Property id="ACLINESEGMENT_R" value="3.0874455" />
+            <Property id="ACLINESEGMENT_R0" value="2.02123046" />
+            <Property id="ACLINESEGMENT_BCH" value="-1.21" />
+            <Property id="ACLINESEGMENT_B0CH" value="4.11" />
+            <Property id="ACLINESEGMENT_GCH" value="-0.11" />
+            <Property id="ACLINESEGMENT_G0CH" value="2.79841" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
           <id gid="0x00000008ffffffff" type="TERMINAL" />
           <Properties>
             <Property id="IDOBJ_MRID" value="TM_1" />
@@ -310,7 +410,7 @@
             <Property id="IDOBJ_ALIASNAME" value="Terminal10" />
             <Property id="TERMINAL_PHASES" value="ABC" />
             <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffd" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffb" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff7" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -321,7 +421,7 @@
             <Property id="IDOBJ_ALIASNAME" value="Terminal11" />
             <Property id="TERMINAL_PHASES" value="ABC" />
             <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffd" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffa" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff6" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -332,7 +432,7 @@
             <Property id="IDOBJ_ALIASNAME" value="Terminal12" />
             <Property id="TERMINAL_PHASES" value="ABC" />
             <Property id="TERMINAL_CONDEQ" value="0x00000007ffffffff" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffa" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff6" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -343,7 +443,7 @@
             <Property id="IDOBJ_ALIASNAME" value="Terminal13" />
             <Property id="TERMINAL_PHASES" value="ABC" />
             <Property id="TERMINAL_CONDEQ" value="0x00000007ffffffff" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff9" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff5" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -354,7 +454,7 @@
             <Property id="IDOBJ_ALIASNAME" value="Terminal14" />
             <Property id="TERMINAL_PHASES" value="ABC" />
             <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffc" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff9" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff5" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -365,7 +465,7 @@
             <Property id="IDOBJ_ALIASNAME" value="Terminal15" />
             <Property id="TERMINAL_PHASES" value="ABC" />
             <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffc" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff8" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff4" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -376,7 +476,7 @@
             <Property id="IDOBJ_ALIASNAME" value="Terminal16" />
             <Property id="TERMINAL_PHASES" value="ABC" />
             <Property id="TERMINAL_CONDEQ" value="0x00000003fffffffd" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff8" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff4" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -387,7 +487,7 @@
             <Property id="IDOBJ_ALIASNAME" value="Terminal17" />
             <Property id="TERMINAL_PHASES" value="ABC" />
             <Property id="TERMINAL_CONDEQ" value="0x00000003ffffffff" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff7" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff3" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -398,7 +498,7 @@
             <Property id="IDOBJ_ALIASNAME" value="Terminal18" />
             <Property id="TERMINAL_PHASES" value="ABC" />
             <Property id="TERMINAL_CONDEQ" value="0x00000003fffffffe" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff6" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff2" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
@@ -426,77 +526,154 @@
         <ResourceDescription>
           <id gid="0x00000008fffffff3" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="TM_3" />
-            <Property id="IDOBJ_NAME" value="TM_3" />
-            <Property id="IDOBJ_ALIASNAME" value="Terminal3" />
+            <Property id="IDOBJ_MRID" value="TM_20" />
+            <Property id="IDOBJ_NAME" value="TM_20" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal20" />
             <Property id="TERMINAL_PHASES" value="ABC" />
-            <Property id="TERMINAL_CONDEQ" value="0x00000005ffffffff" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000004fffffffe" />
             <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000008fffffff2" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="TM_4" />
-            <Property id="IDOBJ_NAME" value="TM_4" />
-            <Property id="IDOBJ_ALIASNAME" value="Terminal4" />
+            <Property id="IDOBJ_MRID" value="TM_21" />
+            <Property id="IDOBJ_NAME" value="TM_21" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal21" />
             <Property id="TERMINAL_PHASES" value="ABC" />
-            <Property id="TERMINAL_CONDEQ" value="0x00000009ffffffff" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffb" />
             <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffd" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000008fffffff1" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="TM_5" />
-            <Property id="IDOBJ_NAME" value="TM_5" />
-            <Property id="IDOBJ_ALIASNAME" value="Terminal5" />
+            <Property id="IDOBJ_MRID" value="TM_22" />
+            <Property id="IDOBJ_NAME" value="TM_22" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal22" />
             <Property id="TERMINAL_PHASES" value="ABC" />
-            <Property id="TERMINAL_CONDEQ" value="0x00000009ffffffff" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffb" />
             <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffc" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000008fffffff0" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="TM_6" />
-            <Property id="IDOBJ_NAME" value="TM_6" />
-            <Property id="IDOBJ_ALIASNAME" value="Terminal6" />
+            <Property id="IDOBJ_MRID" value="TM_23" />
+            <Property id="IDOBJ_NAME" value="TM_23" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal23" />
             <Property id="TERMINAL_PHASES" value="ABC" />
-            <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffe" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffa" />
             <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffc" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000008ffffffef" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="TM_7" />
-            <Property id="IDOBJ_NAME" value="TM_7" />
-            <Property id="IDOBJ_ALIASNAME" value="Terminal7" />
+            <Property id="IDOBJ_MRID" value="TM_24" />
+            <Property id="IDOBJ_NAME" value="TM_24" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal24" />
             <Property id="TERMINAL_PHASES" value="ABC" />
-            <Property id="TERMINAL_CONDEQ" value="0x00000003ffffffff" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffc" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffa" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffb" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000008ffffffee" type="TERMINAL" />
           <Properties>
-            <Property id="IDOBJ_MRID" value="TM_8" />
-            <Property id="IDOBJ_NAME" value="TM_8" />
-            <Property id="IDOBJ_ALIASNAME" value="Termina8" />
+            <Property id="IDOBJ_MRID" value="TM_25" />
+            <Property id="IDOBJ_NAME" value="TM_25" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal25" />
             <Property id="TERMINAL_PHASES" value="ABC" />
-            <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffe" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000003fffffffc" />
             <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffb" />
           </Properties>
         </ResourceDescription>
         <ResourceDescription>
           <id gid="0x00000008ffffffed" type="TERMINAL" />
           <Properties>
+            <Property id="IDOBJ_MRID" value="TM_26" />
+            <Property id="IDOBJ_NAME" value="TM_26" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal26" />
+            <Property id="TERMINAL_PHASES" value="ABC" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000003fffffffc" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffa" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000008ffffffec" type="TERMINAL" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="TM_3" />
+            <Property id="IDOBJ_NAME" value="TM_3" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal3" />
+            <Property id="TERMINAL_PHASES" value="ABC" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000005ffffffff" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff9" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000008ffffffeb" type="TERMINAL" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="TM_4" />
+            <Property id="IDOBJ_NAME" value="TM_4" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal4" />
+            <Property id="TERMINAL_PHASES" value="ABC" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000009ffffffff" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff9" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000008ffffffea" type="TERMINAL" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="TM_5" />
+            <Property id="IDOBJ_NAME" value="TM_5" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal5" />
+            <Property id="TERMINAL_PHASES" value="ABC" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000009ffffffff" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff8" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000008ffffffe9" type="TERMINAL" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="TM_6" />
+            <Property id="IDOBJ_NAME" value="TM_6" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal6" />
+            <Property id="TERMINAL_PHASES" value="ABC" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffe" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff8" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000008ffffffe8" type="TERMINAL" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="TM_7" />
+            <Property id="IDOBJ_NAME" value="TM_7" />
+            <Property id="IDOBJ_ALIASNAME" value="Terminal7" />
+            <Property id="TERMINAL_PHASES" value="ABC" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000003ffffffff" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff8" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000008ffffffe7" type="TERMINAL" />
+          <Properties>
+            <Property id="IDOBJ_MRID" value="TM_8" />
+            <Property id="IDOBJ_NAME" value="TM_8" />
+            <Property id="IDOBJ_ALIASNAME" value="Termina8" />
+            <Property id="TERMINAL_PHASES" value="ABC" />
+            <Property id="TERMINAL_CONDEQ" value="0x00000009fffffffe" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff7" />
+          </Properties>
+        </ResourceDescription>
+        <ResourceDescription>
+          <id gid="0x00000008ffffffe6" type="TERMINAL" />
+          <Properties>
             <Property id="IDOBJ_MRID" value="TM_9" />
             <Property id="IDOBJ_NAME" value="TM_9" />
             <Property id="TERMINAL_PHASES" value="ABC" />
             <Property id="TERMINAL_CONDEQ" value="0x00000003fffffffe" />
-            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffffb" />
+            <Property id="TERMINAL_CONNECTIVITYNODE" value="0x00000002fffffff7" />
           </Properties>
         </ResourceDescription>
       </ResourceDescriptions>

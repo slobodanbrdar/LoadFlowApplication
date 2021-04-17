@@ -25,7 +25,7 @@ namespace Common.Clients
 		{
 			Uri uri = new Uri(serviceUri);
 			ClientFactory clientFactory = new ClientFactory();
-			return clientFactory.CreateClient<LoadFlowSolverClient, ILoadFlowSolver>(uri, ServiceType.STATEFUL_SERVICE);
+			return clientFactory.CreateClient<LoadFlowSolverClient, ILoadFlowSolver>(uri, ServiceType.STATEFUL_SERVICE, partitionKey: partitionKey);
 		}
 
 		public async Task SolveLoadFlow(long rootId)

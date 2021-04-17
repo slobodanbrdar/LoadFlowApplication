@@ -26,7 +26,7 @@ namespace Common.Clients
 		{
 			Uri uri = new Uri(serviceUri);
 			ClientFactory clientFactory = new ClientFactory();
-			return clientFactory.CreateClient<TopologyAnalyzerClient, ITopologyAnalyzer>(uri, ServiceType.STATEFUL_SERVICE);
+			return clientFactory.CreateClient<TopologyAnalyzerClient, ITopologyAnalyzer>(uri, ServiceType.STATEFUL_SERVICE, partitionKey: partitionKey);
 		}
 
 		public async Task<TopologyResult> AnalyzeTopology(CModelFramework internalModel, long rootId)

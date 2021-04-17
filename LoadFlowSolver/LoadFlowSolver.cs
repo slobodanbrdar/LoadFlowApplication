@@ -46,6 +46,7 @@ namespace LoadFlowSolver
 				Logger.LogError($"Load flow error failed with error: {executionReport.Message}");
 			}
 
+			Logger.LogInformation($"{executionReport.Message}");
 
 			DSS DSSObject = new DSS();
 			

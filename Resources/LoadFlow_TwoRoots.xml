@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:cim="http://iec.ch/TC57/2010/CIM-schema-cim15#"
+			xmlns:ftn="http://www.ftnydro.com/CIM15/2010/extension#">
+
+		<cim:BaseVoltage rdf:ID="BV_1">
+			<cim:BaseVoltage.nominalVoltage>115000</cim:BaseVoltage.nominalVoltage>
+			<cim:IdentifiedObject.aliasName>BaseVoltage1</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>BV_1</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>BV_1</cim:IdentifiedObject.name>
+		</cim:BaseVoltage>
+		
+		<cim:BaseVoltage rdf:ID="BV_2">
+			<cim:BaseVoltage.nominalVoltage>12470</cim:BaseVoltage.nominalVoltage>
+			<cim:IdentifiedObject.aliasName>BaseVoltage2</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>BV_2</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>BV_2</cim:IdentifiedObject.name>
+		</cim:BaseVoltage>
+
+		<!--EnergySource-->
+		<cim:EnergySource rdf:ID="ES_1">
+			<cim:EnergySource.activePower>25000000</cim:EnergySource.activePower>
+			<cim:EnergySource.nominalVoltage>115000</cim:EnergySource.nominalVoltage>
+			<cim:EnergySource.r>0.088562</cim:EnergySource.r>
+			<cim:EnergySource.r0>0.029850</cim:EnergySource.r0>
+			<cim:EnergySource.rn>0.086532</cim:EnergySource.rn>
+			<cim:EnergySource.voltageAngle>0</cim:EnergySource.voltageAngle>
+			<cim:EnergySource.voltageMagnitude>115000</cim:EnergySource.voltageMagnitude>
+			<cim:EnergySource.x>0.205623</cim:EnergySource.x>
+			<cim:EnergySource.x0>0.1961452</cim:EnergySource.x0>
+			<cim:EnergySource.xn>0.0847210</cim:EnergySource.xn>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_1"/>
+			<cim:IdentifiedObject.aliasName>EnergySource1</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>ES_1</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>ES_1</cim:IdentifiedObject.name>
+		</cim:EnergySource>
+		
+		<cim:EnergySource rdf:ID="ES_2">
+			<cim:EnergySource.activePower>25000000</cim:EnergySource.activePower>
+			<cim:EnergySource.nominalVoltage>115000</cim:EnergySource.nominalVoltage>
+			<cim:EnergySource.r>4.12</cim:EnergySource.r>
+			<cim:EnergySource.r0>3.33</cim:EnergySource.r0>
+			<cim:EnergySource.rn>7.5</cim:EnergySource.rn>
+			<cim:EnergySource.voltageAngle>0</cim:EnergySource.voltageAngle>
+			<cim:EnergySource.voltageMagnitude>115000</cim:EnergySource.voltageMagnitude>
+			<cim:EnergySource.x>1.205623</cim:EnergySource.x>
+			<cim:EnergySource.x0>2.1961452</cim:EnergySource.x0>
+			<cim:EnergySource.xn>3.0847210</cim:EnergySource.xn>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_1"/>
+			<cim:IdentifiedObject.aliasName>EnergySource2</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>ES_2</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>ES_2</cim:IdentifiedObject.name>
+		</cim:EnergySource>
+		<!--END EnergySource-->
+		
+		<!--ACLineSegment-->
+		<cim:ACLineSegment rdf:ID="ACL_1">
+			<cim:ACLineSegment.b0ch>2.74</cim:ACLineSegment.b0ch>
+			<cim:ACLineSegment.bch>-0.15</cim:ACLineSegment.bch>
+			<cim:ACLineSegment.g0ch>0.847210</cim:ACLineSegment.g0ch>
+			<cim:ACLineSegment.gch>-0.34</cim:ACLineSegment.gch>
+			<cim:ACLineSegment.r>0.0868455</cim:ACLineSegment.r>
+			<cim:ACLineSegment.r0>0.0298305</cim:ACLineSegment.r0>
+			<cim:ACLineSegment.x>0.2022548</cim:ACLineSegment.x>
+			<cim:ACLineSegment.x0>0.0719161</cim:ACLineSegment.x0>
+			<cim:Conductor.length>10000</cim:Conductor.length>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>ACLineSegment1</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>ACL_1</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>ACL_1</cim:IdentifiedObject.name>
+		</cim:ACLineSegment>
+		
+		<cim:ACLineSegment rdf:ID="ACL_2">
+			<cim:ACLineSegment.b0ch>2.31</cim:ACLineSegment.b0ch>
+			<cim:ACLineSegment.bch>-0.36</cim:ACLineSegment.bch>
+			<cim:ACLineSegment.g0ch>0.941230</cim:ACLineSegment.g0ch>
+			<cim:ACLineSegment.gch>-0.31</cim:ACLineSegment.gch>
+			<cim:ACLineSegment.r>0.0853409</cim:ACLineSegment.r>
+			<cim:ACLineSegment.r0>0.0318305</cim:ACLineSegment.r0>
+			<cim:ACLineSegment.x>0.2021748</cim:ACLineSegment.x>
+			<cim:ACLineSegment.x0>0.071291</cim:ACLineSegment.x0>
+			<cim:Conductor.length>10000</cim:Conductor.length>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>ACLineSegment2</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>ACL_2</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>ACL_2</cim:IdentifiedObject.name>
+		</cim:ACLineSegment>
+		
+		<cim:ACLineSegment rdf:ID="ACL_3">
+			<cim:ACLineSegment.b0ch>2.11</cim:ACLineSegment.b0ch>
+			<cim:ACLineSegment.bch>-0.21</cim:ACLineSegment.bch>
+			<cim:ACLineSegment.g0ch>0.798410</cim:ACLineSegment.g0ch>
+			<cim:ACLineSegment.gch>-0.11</cim:ACLineSegment.gch>
+			<cim:ACLineSegment.r>0.0874455</cim:ACLineSegment.r>
+			<cim:ACLineSegment.r0>0.0212305</cim:ACLineSegment.r0>
+			<cim:ACLineSegment.x>0.2089548</cim:ACLineSegment.x>
+			<cim:ACLineSegment.x0>0.0659161</cim:ACLineSegment.x0>
+			<cim:Conductor.length>20000</cim:Conductor.length>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>ACLineSegment3</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>ACL_3</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>ACL_3</cim:IdentifiedObject.name>
+		</cim:ACLineSegment>
+		
+		<cim:ACLineSegment rdf:ID="ACL_4">
+			<cim:ACLineSegment.b0ch>2.11</cim:ACLineSegment.b0ch>
+			<cim:ACLineSegment.bch>-0.21</cim:ACLineSegment.bch>
+			<cim:ACLineSegment.g0ch>0.798410</cim:ACLineSegment.g0ch>
+			<cim:ACLineSegment.gch>-0.11</cim:ACLineSegment.gch>
+			<cim:ACLineSegment.r>0.0874455</cim:ACLineSegment.r>
+			<cim:ACLineSegment.r0>0.0212305</cim:ACLineSegment.r0>
+			<cim:ACLineSegment.x>0.2089548</cim:ACLineSegment.x>
+			<cim:ACLineSegment.x0>0.0659161</cim:ACLineSegment.x0>
+			<cim:Conductor.length>20000</cim:Conductor.length>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>ACLineSegment4</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>ACL_4</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>ACL_4</cim:IdentifiedObject.name>
+		</cim:ACLineSegment>
+		
+		<cim:ACLineSegment rdf:ID="ACL_5">
+			<cim:ACLineSegment.b0ch>4.11</cim:ACLineSegment.b0ch>
+			<cim:ACLineSegment.bch>-1.21</cim:ACLineSegment.bch>
+			<cim:ACLineSegment.g0ch>2.798410</cim:ACLineSegment.g0ch>
+			<cim:ACLineSegment.gch>-0.11</cim:ACLineSegment.gch>
+			<cim:ACLineSegment.r>3.0874455</cim:ACLineSegment.r>
+			<cim:ACLineSegment.r0>2.0212305</cim:ACLineSegment.r0>
+			<cim:ACLineSegment.x>1.2089548</cim:ACLineSegment.x>
+			<cim:ACLineSegment.x0>5.0659161</cim:ACLineSegment.x0>
+			<cim:Conductor.length>25000</cim:Conductor.length>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>ACLineSegment5</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>ACL_5</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>ACL_5</cim:IdentifiedObject.name>
+		</cim:ACLineSegment>
+		
+		<cim:ACLineSegment rdf:ID="ACL_6">
+			<cim:ACLineSegment.b0ch>4.11</cim:ACLineSegment.b0ch>
+			<cim:ACLineSegment.bch>-1.21</cim:ACLineSegment.bch>
+			<cim:ACLineSegment.g0ch>2.798410</cim:ACLineSegment.g0ch>
+			<cim:ACLineSegment.gch>-0.11</cim:ACLineSegment.gch>
+			<cim:ACLineSegment.r>3.0874455</cim:ACLineSegment.r>
+			<cim:ACLineSegment.r0>2.0212305</cim:ACLineSegment.r0>
+			<cim:ACLineSegment.x>1.2089548</cim:ACLineSegment.x>
+			<cim:ACLineSegment.x0>5.0659161</cim:ACLineSegment.x0>
+			<cim:Conductor.length>25000</cim:Conductor.length>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>ACLineSegment6</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>ACL_6</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>ACL_6</cim:IdentifiedObject.name>
+		</cim:ACLineSegment>
+		<!--END ACLineSegment-->
+		
+		<!--PowerTransformer-->
+		<cim:PowerTransformer rdf:ID="PT_1">
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_1"/>
+			<cim:IdentifiedObject.aliasName>PowerTransformer1</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>PT_1</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>PT_1</cim:IdentifiedObject.name>
+		</cim:PowerTransformer>
+		<!--END PowerTransformer-->
+		
+		<!--PowerTransformerEnd-->
+		<cim:PowerTransformerEnd rdf:ID="PTE_11">
+			<cim:PowerTransformerEnd.b>2.11</cim:PowerTransformerEnd.b>
+			<cim:PowerTransformerEnd.b0>3.2</cim:PowerTransformerEnd.b0>
+			<cim:PowerTransformerEnd.connectionKind>D</cim:PowerTransformerEnd.connectionKind>
+			<cim:PowerTransformerEnd.endNumber>1</cim:PowerTransformerEnd.endNumber>
+			<cim:PowerTransformerEnd.g>0.235</cim:PowerTransformerEnd.g>
+			<cim:PowerTransformerEnd.g0>0.562</cim:PowerTransformerEnd.g0>
+			<cim:PowerTransformerEnd.PowerTransformer rdf:resource="#PT_1"/>
+			<cim:PowerTransformerEnd.r>0.085621</cim:PowerTransformerEnd.r>
+			<cim:PowerTransformerEnd.r0>0.075652</cim:PowerTransformerEnd.r0>
+			<cim:PowerTransformerEnd.ratedS>20000000</cim:PowerTransformerEnd.ratedS>
+			<cim:PowerTransformerEnd.ratedU>115000</cim:PowerTransformerEnd.ratedU>
+			<cim:PowerTransformerEnd.x>0.25</cim:PowerTransformerEnd.x>
+			<cim:PowerTransformerEnd.x0>0.15163</cim:PowerTransformerEnd.x0>
+			<cim:IdentifiedObject.aliasName>PowerTransformerEnd11</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>PTE_11</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>PTE_11</cim:IdentifiedObject.name>
+		</cim:PowerTransformerEnd>
+	
+		<cim:PowerTransformerEnd rdf:ID="PTE_12">
+			<cim:PowerTransformerEnd.b>2.36</cim:PowerTransformerEnd.b>
+			<cim:PowerTransformerEnd.b0>3.45</cim:PowerTransformerEnd.b0>
+			<cim:PowerTransformerEnd.connectionKind>Y</cim:PowerTransformerEnd.connectionKind>
+			<cim:PowerTransformerEnd.endNumber>2</cim:PowerTransformerEnd.endNumber>
+			<cim:PowerTransformerEnd.g>0.2963</cim:PowerTransformerEnd.g>
+			<cim:PowerTransformerEnd.g0>0.0518</cim:PowerTransformerEnd.g0>
+			<cim:PowerTransformerEnd.PowerTransformer rdf:resource="#PT_1"/>
+			<cim:PowerTransformerEnd.r>0.065321</cim:PowerTransformerEnd.r>
+			<cim:PowerTransformerEnd.r0>0.08962</cim:PowerTransformerEnd.r0>
+			<cim:PowerTransformerEnd.ratedS>20000000</cim:PowerTransformerEnd.ratedS>
+			<cim:PowerTransformerEnd.ratedU>12470</cim:PowerTransformerEnd.ratedU>
+			<cim:PowerTransformerEnd.x>0.33</cim:PowerTransformerEnd.x>
+			<cim:PowerTransformerEnd.x0>0.15395</cim:PowerTransformerEnd.x0>
+			<cim:IdentifiedObject.aliasName>PowerTransformerEnd12</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>PTE_12</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>PTE_12</cim:IdentifiedObject.name>
+		</cim:PowerTransformerEnd>
+		<!--END PowerTransformerEnd-->
+		
+		<!--EnergyConsumer-->
+		<cim:EnergyConsumer rdf:ID="EC_1">
+			<cim:EnergyConsumer.grounded>Y</cim:EnergyConsumer.grounded>
+			<cim:EnergyConsumer.pfixed>1000000</cim:EnergyConsumer.pfixed>
+			<cim:EnergyConsumer.pfixedPct>88</cim:EnergyConsumer.pfixedPct>
+			<cim:EnergyConsumer.phaseConnection>Y</cim:EnergyConsumer.phaseConnection>
+			<cim:EnergyConsumer.qfixed></cim:EnergyConsumer.qfixed>
+			<cim:EnergyConsumer.qfixedPct></cim:EnergyConsumer.qfixedPct>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>EnergyConsumer1</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>EC_1</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>EC_1</cim:IdentifiedObject.name>
+		</cim:EnergyConsumer>
+		
+		<cim:EnergyConsumer rdf:ID="EC_2">
+			<cim:EnergyConsumer.grounded>D</cim:EnergyConsumer.grounded>
+			<cim:EnergyConsumer.pfixed>500000</cim:EnergyConsumer.pfixed>
+			<cim:EnergyConsumer.pfixedPct>88</cim:EnergyConsumer.pfixedPct>
+			<cim:EnergyConsumer.phaseConnection>D</cim:EnergyConsumer.phaseConnection>
+			<cim:EnergyConsumer.qfixed></cim:EnergyConsumer.qfixed>
+			<cim:EnergyConsumer.qfixedPct></cim:EnergyConsumer.qfixedPct>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>EnergyConsumer2</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>EC_2</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>EC_2</cim:IdentifiedObject.name>
+		</cim:EnergyConsumer>
+		
+		<cim:EnergyConsumer rdf:ID="EC_3">
+			<cim:EnergyConsumer.grounded>D</cim:EnergyConsumer.grounded>
+			<cim:EnergyConsumer.pfixed>500000</cim:EnergyConsumer.pfixed>
+			<cim:EnergyConsumer.pfixedPct>88</cim:EnergyConsumer.pfixedPct>
+			<cim:EnergyConsumer.phaseConnection>D</cim:EnergyConsumer.phaseConnection>
+			<cim:EnergyConsumer.qfixed></cim:EnergyConsumer.qfixed>
+			<cim:EnergyConsumer.qfixedPct></cim:EnergyConsumer.qfixedPct>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>EnergyConsumer3</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>EC_3</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>EC_3</cim:IdentifiedObject.name>
+		</cim:EnergyConsumer>
+		
+		<cim:EnergyConsumer rdf:ID="EC_4">
+			<cim:EnergyConsumer.grounded>D</cim:EnergyConsumer.grounded>
+			<cim:EnergyConsumer.pfixed>500000</cim:EnergyConsumer.pfixed>
+			<cim:EnergyConsumer.pfixedPct>88</cim:EnergyConsumer.pfixedPct>
+			<cim:EnergyConsumer.phaseConnection>D</cim:EnergyConsumer.phaseConnection>
+			<cim:EnergyConsumer.qfixed></cim:EnergyConsumer.qfixed>
+			<cim:EnergyConsumer.qfixedPct></cim:EnergyConsumer.qfixedPct>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>EnergyConsumer4</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>EC_4</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>EC_4</cim:IdentifiedObject.name>
+		</cim:EnergyConsumer>
+
+		<!--END EnergyConsumer-->
+		
+		<!--Switch-->
+		<cim:Switch rdf:ID="SW_1">
+			<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+			<cim:ConductingEquipment.BaseVoltage rdf:resource="#BV_2"/>
+			<cim:IdentifiedObject.aliasName>Switch1</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>SW_1</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>SW_1</cim:IdentifiedObject.name>
+		</cim:Switch>
+		<!--END Switch-->
+		
+		<!--ConnectivityNode-->
+		<cim:ConnectivityNode rdf:ID="CN_1">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode1</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_1</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_1</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_2">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode2</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_2</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_2</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_3">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode3</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_3</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_3</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_4">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode4</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_4</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_4</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_5">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode5</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_5</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_5</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_6">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode6</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_6</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_6</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_7">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode7</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_7</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_7</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_8">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode8</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_8</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_8</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_9">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode9</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_9</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_9</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_10">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode10</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_10</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_10</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_11">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode11</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_11</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_11</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_12">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode12</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_12</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_12</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_13">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode13</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_13</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_13</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<cim:ConnectivityNode rdf:ID="CN_14">
+			<cim:IdentifiedObject.aliasName>ConnectivityNode14</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>CN_14</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>CN_14</cim:IdentifiedObject.name>
+		</cim:ConnectivityNode>
+		<!--END ConnectivityNode-->
+		
+		<!--Terminal-->
+		<cim:Terminal rdf:ID="TM_1">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ES_1"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_1"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal1</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_1</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_1</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_2">
+			<cim:Terminal.ConductingEquipment rdf:resource="#PT_1"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_1"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal2</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_2</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_2</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_3">
+			<cim:Terminal.ConductingEquipment rdf:resource="#PT_1"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_2"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal3</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_3</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_3</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_4">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_1"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_2"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal4</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_4</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_4</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_5">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_1"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_3"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal5</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_5</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_5</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_6">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_2"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_3"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal6</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_6</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_6</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_7">
+			<cim:Terminal.ConductingEquipment rdf:resource="#EC_1"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_3"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal7</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_7</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_7</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_8">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_2"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_4"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Termina8</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_8</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_8</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_9">
+			<cim:Terminal.ConductingEquipment rdf:resource="#EC_2"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_4"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName> </cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_9</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_9</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_10">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_3"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_4"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal10</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_10</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_10</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_11">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_3"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_5"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal11</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_11</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_11</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_12">
+			<cim:Terminal.ConductingEquipment rdf:resource="#SW_1"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_5"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal12</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_12</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_12</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_13">
+			<cim:Terminal.ConductingEquipment rdf:resource="#SW_1"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_6"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal13</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_13</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_13</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_14">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_4"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_6"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal14</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_14</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_14</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_15">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_4"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_7"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal15</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_15</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_15</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_16">
+			<cim:Terminal.ConductingEquipment rdf:resource="#EC_3"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_7"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal16</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_16</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_16</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_17">
+			<cim:Terminal.ConductingEquipment rdf:resource="#EC_1"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_8"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal17</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_17</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_17</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_18">
+			<cim:Terminal.ConductingEquipment rdf:resource="#EC_2"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_9"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal18</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_18</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_18</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_19">
+			<cim:Terminal.ConductingEquipment rdf:resource="#EC_3"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_10"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal19</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_19</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_19</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_20">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ES_2"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_11"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal20</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_20</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_20</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_21">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_5"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_11"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal21</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_21</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_21</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_22">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_5"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_12"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal22</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_22</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_22</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_23">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_6"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_12"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal23</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_23</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_23</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_24">
+			<cim:Terminal.ConductingEquipment rdf:resource="#ACL_6"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_13"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal24</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_24</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_24</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_25">
+			<cim:Terminal.ConductingEquipment rdf:resource="#EC_4"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_13"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal25</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_25</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_25</cim:IdentifiedObject.name>
+		</cim:Terminal>
+		<cim:Terminal rdf:ID="TM_26">
+			<cim:Terminal.ConductingEquipment rdf:resource="#EC_4"/>
+			<cim:Terminal.ConnectivityNode rdf:resource="#CN_14"/>
+			<cim:Terminal.phases>ABC</cim:Terminal.phases>
+			<cim:IdentifiedObject.aliasName>Terminal26</cim:IdentifiedObject.aliasName>
+			<cim:IdentifiedObject.mRID>TM_26</cim:IdentifiedObject.mRID>
+			<cim:IdentifiedObject.name>TM_26</cim:IdentifiedObject.name>
+		</cim:Terminal>
+
+		<!--END Terminal-->
+
+</rdf:RDF>
