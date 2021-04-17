@@ -15,6 +15,9 @@ namespace Common.ModelManagerInterfaces
 		Task<ExecutionReport> InitializeTopology();
 
 		[OperationContract]
-		Task<ExecutionReport> GetOpenDSSScript();
+		Task<ExecutionReport> GetOpenDSSScript(long rootId);
+
+		[OperationContract]
+		Task<IEnumerable<long>> GetRootIDs();
 	}
 }

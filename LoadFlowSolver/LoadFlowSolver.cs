@@ -37,9 +37,15 @@ namespace LoadFlowSolver
 			this.logger = CloudLoggerFactory.GetLogger(ServiceEventSource.Current, context);
 		}
 
-		public async Task SolveLoadFlow()
+		public async Task SolveLoadFlow(long rootId)
 		{
-			ExecutionReport executionReport = await ModelAccessContract.GetOpenDSSScript();
+			ExecutionReport executionReport = await ModelAccessContract.GetOpenDSSScript(rootId);
+
+			if (executionReport.Status == ExecutionStatus.ERROR)
+			{
+				Logger.LogError($"Load flow error failed with error: {executionReport.Message}");
+			}
+
 
 			DSS DSSObject = new DSS();
 			

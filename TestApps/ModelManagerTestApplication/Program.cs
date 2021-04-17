@@ -18,7 +18,7 @@ namespace ModelManagerTestApplication
 	{
 		public static IModelAccessContract ModelAccessContract { get { return ModelAccessClient.CreateClient(); } }
 
-		public static ILoadFlowSolver LoadFlowSolverContract { get { return LoadFlowSolverClient.CreateClient(); } }
+		public static ILoadFlowManagerContract LoadFlowManagerContract { get { return LoadFlowManagerClient.CreateClient(); } }
 		static async Task Main(string[] args)
 		{
 			string response = String.Empty;
@@ -37,13 +37,7 @@ namespace ModelManagerTestApplication
 				}
 				else if (response == "2")
 				{
-					executionReport = await ModelAccessContract.GetOpenDSSScript();
-
-					Console.WriteLine($"Execution status: {executionReport.Status}. Message:\n{executionReport.Message}");
-				}
-				else if (response == "3")
-				{
-					await LoadFlowSolverContract.SolveLoadFlow();
+					await LoadFlowManagerContract.StartLoadFlowSolving();
 				}
 
 			} while (response != "q");
@@ -56,8 +50,7 @@ namespace ModelManagerTestApplication
 		{
 			Console.WriteLine("\nChoose tests type:");
 			Console.WriteLine("\t1) Initialize topology");
-			Console.WriteLine("\t2) Get Open Dss Script");
-			Console.WriteLine("\t3) Solve load flow");
+			Console.WriteLine("\t2) Solve load flow");
 			Console.WriteLine("\tq) Quit");
 		}
 	}

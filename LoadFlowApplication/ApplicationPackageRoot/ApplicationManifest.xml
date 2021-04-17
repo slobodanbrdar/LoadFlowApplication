@@ -7,7 +7,7 @@
     <Parameter Name="TopologyAnalyzerService_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="LoadFlowManagerService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="LoadFlowSolver_MinReplicaSetSize" DefaultValue="3" />
-    <Parameter Name="LoadFlowSolver_PartitionCount" DefaultValue="1" />
+    <Parameter Name="LoadFlowSolver_PartitionCount" DefaultValue="3" />
     <Parameter Name="LoadFlowSolver_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="ModelManagerService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="ModelManagerService_PartitionCount" DefaultValue="1" />
@@ -52,7 +52,7 @@
     </Service>
     <Service Name="TopologyAnalyzerService" ServicePackageActivationMode="ExclusiveProcess">
       <StatefulService ServiceTypeName="TopologyAnalyzerServiceType" TargetReplicaSetSize="[TopologyAnalyzerService_TargetReplicaSetSize]" MinReplicaSetSize="[TopologyAnalyzerService_MinReplicaSetSize]">
-        <UniformInt64Partition PartitionCount="[TopologyAnalyzerService_PartitionCount]" LowKey="0" HighKey="3" />
+        <UniformInt64Partition PartitionCount="[TopologyAnalyzerService_PartitionCount]" LowKey="0" HighKey="2" />
       </StatefulService>
     </Service>
     <Service Name="LoadFlowManagerService" ServicePackageActivationMode="ExclusiveProcess">
@@ -62,7 +62,7 @@
     </Service>
     <Service Name="LoadFlowSolver" ServicePackageActivationMode="ExclusiveProcess">
       <StatefulService ServiceTypeName="LoadFlowSolverType" TargetReplicaSetSize="[LoadFlowSolver_TargetReplicaSetSize]" MinReplicaSetSize="[LoadFlowSolver_MinReplicaSetSize]">
-        <UniformInt64Partition PartitionCount="[LoadFlowSolver_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+        <UniformInt64Partition PartitionCount="[LoadFlowSolver_PartitionCount]" LowKey="0" HighKey="2" />
       </StatefulService>
     </Service>
     <Service Name="ModelManagerService" ServicePackageActivationMode="ExclusiveProcess">

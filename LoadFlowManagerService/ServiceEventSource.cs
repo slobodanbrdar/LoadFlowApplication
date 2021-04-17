@@ -1,4 +1,5 @@
-﻿using Microsoft.ServiceFabric.Services.Runtime;
+﻿using Common.Logger;
+using Microsoft.ServiceFabric.Services.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace LoadFlowManagerService
 {
 	[EventSource(Name = "MyCompany-LoadFlowApplication-LoadFlowManagerService")]
-	internal sealed class ServiceEventSource : EventSource
+	internal sealed class ServiceEventSource : EventSource, IServiceEventTracing
 	{
 		public static readonly ServiceEventSource Current = new ServiceEventSource();
 
@@ -19,6 +20,11 @@ namespace LoadFlowManagerService
 			// A workaround for the problem where ETW activities do not get tracked until Tasks infrastructure is initialized.
 			// This problem will be fixed in .NET Framework 4.6.2.
 			Task.Run(() => { });
+		}
+
+		public void UniversalServiceMessage(ServiceContext serviceContext, string message)
+		{
+			ServiceMessage((StatelessServiceContext)serviceContext, message) ;
 		}
 
 		// Instance constructor is private to enforce singleton semantics

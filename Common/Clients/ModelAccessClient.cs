@@ -27,9 +27,14 @@ namespace Common.Clients
 			return clientFactory.CreateClient<ModelAccessClient, IModelAccessContract>(uri, ServiceType.STATEFUL_SERVICE);
 		}
 
-		public async Task<ExecutionReport> GetOpenDSSScript()
+		public async Task<ExecutionReport> GetOpenDSSScript(long rootId)
 		{
-			return await InvokeWithRetryAsync(client => client.Channel.GetOpenDSSScript());
+			return await InvokeWithRetryAsync(client => client.Channel.GetOpenDSSScript(rootId));
+		}
+
+		public async Task<IEnumerable<long>> GetRootIDs()
+		{
+			return await InvokeWithRetryAsync(client => client.Channel.GetRootIDs());
 		}
 
 		public async Task<ExecutionReport> InitializeTopology()

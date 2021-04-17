@@ -144,7 +144,7 @@ namespace ModelManagerImplementation.ModelAccess
 			long currentNetworkModelVersion = await gdaHelper.GetVersion();
 
 			var networkModelVersionDictionary = await this.stateManager.GetOrAddAsync<IReliableDictionary<string, long>>(ReliableCollectionNames.NetworkModelVersionDictionary);
-
+			await networkModelVersionDictionary.ClearAsync();
 			using (var tx = this.stateManager.CreateTransaction())
 			{
 				await networkModelVersionDictionary.AddAsync(tx, ReliableCollectionNames.NetworkModelVersionDictionary, currentNetworkModelVersion);
@@ -154,7 +154,7 @@ namespace ModelManagerImplementation.ModelAccess
 			return executionReport;
 		}
 
-		public async Task<ExecutionReport> GetOpenDSSScript()
+		public async Task<ExecutionReport> GetOpenDSSScript(long rootId)
 		{
 			ExecutionReport executionReport = new ExecutionReport();
 
@@ -194,15 +194,22 @@ namespace ModelManagerImplementation.ModelAccess
 					return executionReport;
 				}
 
-				var enumerator = (await topologyResultDictionary.CreateEnumerableAsync(tx)).GetAsyncEnumerator();
+				var result = await topologyResultDictionary.TryGetValueAsync(tx, rootId);
 
-				await enumerator.MoveNextAsync(new CancellationToken());
+				if (!result.HasValue)
+				{
+					string message = $"Root id {rootId} is not presented in topology model";
+					Logger.LogError(message);
+					executionReport.Message = message;
+					executionReport.Status = ExecutionStatus.ERROR;
+					return executionReport;
+				}
 
-				topologyResult = enumerator.Current.Value;
+				topologyResult = result.Value;
 				
 			}
 
-			Dictionary<long, ResourceDescription> networkModel = await GetAllElementsFromReliableDictionary(ReliableCollectionNames.NetworkModelDictinoary);
+			Dictionary<long, ResourceDescription> networkModel = await GetAllNetworkModelElementsFromReliableDictionary(ReliableCollectionNames.NetworkModelDictinoary);
 
 			OpenDSSScriptBuilder openDSSScriptBuilder = new OpenDSSScriptBuilder(networkModel, topologyResult);
 
@@ -221,6 +228,25 @@ namespace ModelManagerImplementation.ModelAccess
 			return executionReport;
 		}
 
+		public async Task<IEnumerable<long>> GetRootIDs()
+		{
+			List<long> rootIds = new List<long>();
+
+			var topologyResultDictionary = await this.stateManager.GetOrAddAsync<IReliableDictionary<long, TopologyResult>>(ReliableCollectionNames.TopologyResultDictionary);
+
+			using (ITransaction tx = this.stateManager.CreateTransaction())
+			{
+				var enumerator = (await topologyResultDictionary.CreateEnumerableAsync(tx)).GetAsyncEnumerator();
+
+				while (await enumerator.MoveNextAsync(new CancellationToken()))
+				{
+					rootIds.Add(enumerator.Current.Key);
+				}
+			}
+
+			return rootIds;
+		}
+
 		#region Private methods
 
 		private async Task ClearDictionary<T1, T2>(string dictionaryName) where T1 : IComparable<T1>, IEquatable<T1>
@@ -229,7 +255,7 @@ namespace ModelManagerImplementation.ModelAccess
 			await reliableDictionary.ClearAsync();
 		}
 
-		private async Task<Dictionary<long, ResourceDescription>> GetAllElementsFromReliableDictionary(string dictionaryName)
+		private async Task<Dictionary<long, ResourceDescription>> GetAllNetworkModelElementsFromReliableDictionary(string dictionaryName)
 		{
 			Dictionary<long, ResourceDescription> returnValue = new Dictionary<long, ResourceDescription>();
 			var reliableDictionary = await this.stateManager.GetOrAddAsync<IReliableDictionary<long, ResourceDescription>>(dictionaryName);
@@ -287,6 +313,8 @@ namespace ModelManagerImplementation.ModelAccess
 				await tx.CommitAsync();
 			}
 		}
+
+		
 
 		#endregion
 	}

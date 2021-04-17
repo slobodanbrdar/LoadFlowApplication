@@ -36,6 +36,8 @@ namespace TopologyManagerService
 				ITopologyAnalyzer topologyAnalyzer = TopologyAnalyzerClient.CreateClient(partitionKey);
 
 				topologyTasks.Add(topologyAnalyzer.AnalyzeTopology(internalModel, root.Key));
+
+				index++;
 			}
 
 			return (await Task.WhenAll(topologyTasks)).ToList();

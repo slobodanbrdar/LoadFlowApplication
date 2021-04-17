@@ -328,6 +328,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients\ClientFactory.cs" />
+    <Compile Include="Clients\LoadFlowManagerClient.cs" />
     <Compile Include="Clients\LoadFlowSolverClient.cs" />
     <Compile Include="Clients\ModelAccessClient.cs" />
     <Compile Include="Clients\NetworkModelGdaClient.cs" />
@@ -337,6 +338,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="ExecutionReport.cs" />
     <Compile Include="GDAInterfaces\INetworkModelGDAContract.cs" />
+    <Compile Include="LoadFlowInterfaces\ILoadFlowManagerContract.cs" />
     <Compile Include="LoadFlowInterfaces\ILoadFlowSolver.cs" />
     <Compile Include="LoadFlow\OpenDSSScriptBuilder.cs" />
     <Compile Include="Logger\CloudLogger.cs" />

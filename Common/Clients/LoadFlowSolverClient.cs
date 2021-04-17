@@ -28,9 +28,9 @@ namespace Common.Clients
 			return clientFactory.CreateClient<LoadFlowSolverClient, ILoadFlowSolver>(uri, ServiceType.STATEFUL_SERVICE);
 		}
 
-		public async Task SolveLoadFlow()
+		public async Task SolveLoadFlow(long rootId)
 		{
-			await InvokeWithRetryAsync(client => client.Channel.SolveLoadFlow());
+			await InvokeWithRetryAsync(client => client.Channel.SolveLoadFlow(rootId));
 		}
 	}
 }
