@@ -21,7 +21,7 @@ namespace Common.Clients
 
 		}
 
-		public static ILoadFlowSolver CreateClient()
+		public static ILoadFlowSolver CreateClient(int partitionKey = 0)
 		{
 			Uri uri = new Uri(serviceUri);
 			ClientFactory clientFactory = new ClientFactory();

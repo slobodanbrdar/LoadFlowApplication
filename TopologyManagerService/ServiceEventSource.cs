@@ -1,5 +1,4 @@
-﻿using Common.Logger;
-using Microsoft.ServiceFabric.Services.Runtime;
+﻿using Microsoft.ServiceFabric.Services.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -8,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TopologyAnalyzerService
+namespace TopologyManagerService
 {
-	[EventSource(Name = "MyCompany-LoadFlowApplication-TopologyAnalyzerService")]
-	internal sealed class ServiceEventSource : EventSource, IServiceEventTracing
+	[EventSource(Name = "MyCompany-LoadFlowApplication-TopologyManagerService")]
+	internal sealed class ServiceEventSource : EventSource
 	{
 		public static readonly ServiceEventSource Current = new ServiceEventSource();
 
@@ -24,11 +23,6 @@ namespace TopologyAnalyzerService
 
 		// Instance constructor is private to enforce singleton semantics
 		private ServiceEventSource() : base() { }
-
-		public void UniversalServiceMessage(ServiceContext serviceContext, string message)
-		{
-			ServiceMessage((StatelessServiceContext)serviceContext, message);
-		}
 
 		#region Keywords
 		// Event keywords can be used to categorize events. 

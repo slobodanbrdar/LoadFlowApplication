@@ -5,7 +5,7 @@ using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TopologyAnalyzerService
+namespace LoadFlowManagerService
 {
 	internal static class Program
 	{
@@ -21,10 +21,10 @@ namespace TopologyAnalyzerService
 				// When Service Fabric creates an instance of this service type,
 				// an instance of the class is created in this host process.
 
-				ServiceRuntime.RegisterServiceAsync("TopologyAnalyzerServiceType",
-					context => new TopologyAnalyzerService(context)).GetAwaiter().GetResult();
+				ServiceRuntime.RegisterServiceAsync("LoadFlowManagerServiceType",
+					context => new LoadFlowManagerService(context)).GetAwaiter().GetResult();
 
-				ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(TopologyAnalyzerService).Name);
+				ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(LoadFlowManagerService).Name);
 
 				// Prevents this host process from terminating so services keep running.
 				Thread.Sleep(Timeout.Infinite);

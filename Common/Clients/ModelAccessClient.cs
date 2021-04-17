@@ -20,7 +20,7 @@ namespace Common.Clients
 
 		}
 
-		public static IModelAccessContract CreateClient()
+		public static IModelAccessContract CreateClient(int partitionKey = 0)
 		{
 			Uri uri = new Uri(serviceUri);
 			ClientFactory clientFactory = new ClientFactory();

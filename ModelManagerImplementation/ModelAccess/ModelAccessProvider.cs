@@ -27,12 +27,11 @@ namespace ModelManagerImplementation.ModelAccess
 			get { return logger ?? (logger = CloudLoggerFactory.GetLogger()); }
 		}
 
-		private ITopologyAnalyzer topologyAnalyzer;
-		private ITopologyAnalyzer TopologyAnalyzer
+		private ITopologyRequest TopologyRequest
 		{
 			get
 			{
-				return TopologyAnalyzerClient.CreateClient();
+				return TopologyManagerClient.CreateClient();
 			}
 		}
 
@@ -98,10 +97,10 @@ namespace ModelManagerImplementation.ModelAccess
 			internalModelBuilder.ReadBranches(cimBranches, terminals);
 			internalModelBuilder.ReadSwitches(switches, terminals);
 
-			TopologyResult topologyResult = null;
+			IEnumerable<TopologyResult> topologyResults = null;
 			try
 			{
-				topologyResult = await TopologyAnalyzer.AnalyzeTopology(internalModelBuilder.InternalModel);
+				topologyResults = await TopologyRequest.AnalyzeTopology(internalModelBuilder.InternalModel);
 			}
 			catch (Exception e)
 			{
@@ -112,11 +111,11 @@ namespace ModelManagerImplementation.ModelAccess
 				return executionReport;
 			}
 
-			if (topologyResult != null)
+			if (topologyResults != null)
 			{
 				try
 				{
-					await SaveTopologyModel(topologyResult);
+					await SaveTopologyModel(topologyResults);
 					string message = $"Save topology successfully completed";
 					Logger.LogInformation(message);
 					executionReport.Message = message;
@@ -254,15 +253,20 @@ namespace ModelManagerImplementation.ModelAccess
 			return returnValue;
 		}
 
-		private async Task SaveTopologyModel(TopologyResult topologyResult)
+		private async Task SaveTopologyModel(IEnumerable<TopologyResult> topologyResults)
 		{
 			var reliableDictionary = await this.stateManager.GetOrAddAsync<IReliableDictionary<long, TopologyResult>>(ReliableCollectionNames.TopologyResultDictionary);
 			await reliableDictionary.ClearAsync();
 
 			using (ITransaction tx = this.stateManager.CreateTransaction())
 			{
-				//TODO: Prosledi nodeid, to ce ici za vise root-ova
-				await reliableDictionary.AddAsync(tx, topologyResult.Nodes[0].Lid, topologyResult);
+				List<Task> tasks = new List<Task>();
+				foreach (TopologyResult topologyResult in topologyResults)
+				{
+					tasks.Add(reliableDictionary.AddOrUpdateAsync(tx, topologyResult.RootId, topologyResult, (key, value) => topologyResult));
+				}
+
+				await Task.WhenAll(tasks);
 				await tx.CommitAsync();
 			}
 		}
@@ -273,11 +277,13 @@ namespace ModelManagerImplementation.ModelAccess
 
 			using (var tx = this.stateManager.CreateTransaction())
 			{
+				List<Task> tasks = new List<Task>();
 				foreach (var keyValuePair in elements)
 				{
-					await networkModelDictinary.AddOrUpdateAsync(tx, keyValuePair.Key, keyValuePair.Value, (key, value) => keyValuePair.Value);
+					tasks.Add(networkModelDictinary.AddOrUpdateAsync(tx, keyValuePair.Key, keyValuePair.Value, (key, value) => keyValuePair.Value));
 				}
 
+				await Task.WhenAll(tasks);
 				await tx.CommitAsync();
 			}
 		}

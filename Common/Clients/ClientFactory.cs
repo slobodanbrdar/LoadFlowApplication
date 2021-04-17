@@ -24,7 +24,7 @@ namespace Common.Clients
 
 		}
 
-		public TContract CreateClient<TClient, TContract>(Uri serviceUri, ServiceType serviceType, string serviceKey = null) where TContract : class, IService
+		public TContract CreateClient<TClient, TContract>(Uri serviceUri, ServiceType serviceType, string serviceKey = null, int partitionKey = 0) where TContract : class, IService
 																												where TClient : WcfSeviceFabricClientBase<TContract>
 		{
 			//TODO: ako bude trebalo service key resiti
@@ -35,7 +35,7 @@ namespace Common.Clients
 			ServicePartitionKey servicePartition;
 			if (serviceType == ServiceType.STATEFUL_SERVICE)
 			{
-				servicePartition = new ServicePartitionKey(0);
+				servicePartition = new ServicePartitionKey(partitionKey);
 			}
 			else
 			{

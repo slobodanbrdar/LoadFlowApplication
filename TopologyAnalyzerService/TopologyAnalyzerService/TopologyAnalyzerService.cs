@@ -1,9 +1,4 @@
 ﻿using Common.Logger;
-using Common.TopologyServiceInterfaces;
-using Microsoft.ServiceFabric.Services.Communication.Runtime;
-using Microsoft.ServiceFabric.Services.Communication.Wcf;
-using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
-using Microsoft.ServiceFabric.Services.Runtime;
 using Common.TopologyService;
 using Common.TopologyService.InternalModel.Circuts;
 using Common.TopologyService.InternalModel.GraphElems.Branch;
@@ -11,6 +6,12 @@ using Common.TopologyService.InternalModel.GraphElems.Node;
 using Common.TopologyService.InternalModelBuilder;
 using Common.TopologyService.MatrixModel;
 using Common.TopologyService.TopologyAnalyzer;
+using Common.TopologyServiceInterfaces;
+using Microsoft.ServiceFabric.Data.Collections;
+using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
+using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
+using Microsoft.ServiceFabric.Services.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Fabric;
@@ -21,22 +22,22 @@ using System.Threading.Tasks;
 namespace TopologyAnalyzerService
 {
 	/// <summary>
-	/// An instance of this class is created for each service instance by the Service Fabric runtime.
+	/// An instance of this class is created for each service replica by the Service Fabric runtime.
 	/// </summary>
-	internal sealed class TopologyAnalyzerService : StatelessService, ITopologyAnalyzer
+	internal sealed class TopologyAnalyzerService : StatefulService, ITopologyAnalyzer
 	{
 		private ILogger logger;
 		private ILogger Logger
 		{
 			get { return logger ?? (logger = CloudLoggerFactory.GetLogger()); }
 		}
-		public TopologyAnalyzerService(StatelessServiceContext context)
+		public TopologyAnalyzerService(StatefulServiceContext context)
 			: base(context)
 		{
 			this.logger = CloudLoggerFactory.GetLogger(ServiceEventSource.Current, context);
 		}
 
-		public Task<TopologyResult> AnalyzeTopology(CModelFramework internalModel)
+		public Task<TopologyResult> AnalyzeTopology(CModelFramework internalModel, long rootId)
 		{
 			ServiceEventSource.Current.ServiceMessage(this.Context, "TopologyStatelessService.Analyze started. PartitionID = {0}.", Context.PartitionId);
 
@@ -49,33 +50,36 @@ namespace TopologyAnalyzerService
 
 			CTopologyAnalyzer topologyAnalyzer = new CTopologyAnalyzer(matrixModel, matrixModelBuilder.LIDtoIND, matrixModelBuilder.INDtoLID, internalModel);
 
-
-			foreach (MPRoot root in internalModel.Roots.Values)
+			if (!internalModel.Roots.ContainsKey(rootId))
 			{
-				if (!root.UpToDate)     //obradjuju se samo neazurni koreni
-				{
-					topologyAnalyzer.UpdateRootTopology(root);
-				}
+				Logger.LogError($"Root with id 0x{rootId:X16} is not in internal model");
 			}
 
+			MPRoot root = internalModel.Roots[rootId];
 
+			if (!root.UpToDate)     //obradjuju se samo neazurni koreni
+			{
+				topologyAnalyzer.UpdateRootTopology(root);
+			}
+			
+			
 			List<MPNode> nodes = topologyAnalyzer.InternalModel.Nodes.Values.ToList();
 			List<MPBranch> branches = topologyAnalyzer.InternalModel.Branches.Values.ToList();
 
 			ServiceEventSource.Current.ServiceMessage(this.Context, "TopologyStatelessService.Analyze finished.");
 
-			return Task.FromResult(new TopologyResult(nodes, branches));
+			return Task.FromResult(new TopologyResult(nodes, branches, rootId));
 		}
 
 		/// <summary>
 		/// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.
 		/// </summary>
 		/// <returns>A collection of listeners.</returns>
-		protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
+		protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
 		{
-			return new List<ServiceInstanceListener>
+			return new List<ServiceReplicaListener>
 			{
-				new ServiceInstanceListener (context =>
+				new ServiceReplicaListener (context =>
 				{
 					return new WcfCommunicationListener<ITopologyAnalyzer>(context,
 																		   this,
@@ -105,5 +109,6 @@ namespace TopologyAnalyzerService
 			//	await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
 			//}
 		}
+
 	}
 }

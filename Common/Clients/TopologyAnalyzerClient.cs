@@ -22,16 +22,16 @@ namespace Common.Clients
 				
 		}
 
-		public static ITopologyAnalyzer CreateClient()
+		public static ITopologyAnalyzer CreateClient(int partitionKey = 0)
 		{
 			Uri uri = new Uri(serviceUri);
 			ClientFactory clientFactory = new ClientFactory();
-			return clientFactory.CreateClient<TopologyAnalyzerClient, ITopologyAnalyzer>(uri, ServiceType.STATELESS_SERVICE);
+			return clientFactory.CreateClient<TopologyAnalyzerClient, ITopologyAnalyzer>(uri, ServiceType.STATEFUL_SERVICE);
 		}
 
-		public async Task<TopologyResult> AnalyzeTopology(CModelFramework internalModel)
+		public async Task<TopologyResult> AnalyzeTopology(CModelFramework internalModel, long rootId)
 		{
-			return await InvokeWithRetryAsync(client => client.Channel.AnalyzeTopology(internalModel));
+			return await InvokeWithRetryAsync(client => client.Channel.AnalyzeTopology(internalModel, rootId));
 		}
 	}
 }

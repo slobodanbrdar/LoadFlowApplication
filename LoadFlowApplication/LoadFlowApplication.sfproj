@@ -32,10 +32,12 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LoadFlowManagerService\LoadFlowManagerService.csproj" />
     <ProjectReference Include="..\LoadFlowSolver\LoadFlowSolver.csproj" />
     <ProjectReference Include="..\ModelManagerService\ModelManagerService.csproj" />
     <ProjectReference Include="..\NMSGdaService\NMSGdaService.csproj" />
-    <ProjectReference Include="..\TopologyAnalyzerService\TopologyAnalyzerService.csproj" />
+    <ProjectReference Include="..\TopologyAnalyzerService\TopologyAnalyzerService\TopologyAnalyzerService.csproj" />
+    <ProjectReference Include="..\TopologyManagerService\TopologyManagerService.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>

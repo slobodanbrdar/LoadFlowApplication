@@ -21,13 +21,16 @@ namespace Common.TopologyService
         public List<MPNode> Nodes { get; set; }
         [DataMember]
         public List<MPBranch> Branches { get; set; }
+        [DataMember]
+        public long RootId { get; set; }
 
         //public TopologyResult() { }
 
-        public TopologyResult(List<MPNode> nodes, List<MPBranch> branches)
+        public TopologyResult(List<MPNode> nodes, List<MPBranch> branches, long rootId)
         {
             Nodes = nodes;
             Branches = branches;
+            RootId = rootId;
         }
     }
 }
