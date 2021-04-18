@@ -39,6 +39,8 @@ namespace LoadFlowSolver
 
 		public async Task SolveLoadFlow(long rootId)
 		{
+			Logger.LogInformation($"LoadFlowSolver.SolveLoadFlow started. Partition id = {Context.PartitionId}");
+
 			ExecutionReport executionReport = await ModelAccessContract.GetOpenDSSScript(rootId);
 
 			if (executionReport.Status == ExecutionStatus.ERROR)

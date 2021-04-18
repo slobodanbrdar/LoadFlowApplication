@@ -23,7 +23,7 @@ namespace Common.LoadFlow
 		private Dictionary<long, ResourceDescription> Resources { get; set; }
 		private TopologyResult Topology { get; set; }
 		private ModelResourcesDesc modelResourcesDesc;
-
+		private bool rootInitialized = false;
 		public OpenDSSScriptBuilder(Dictionary<long, ResourceDescription> resources, TopologyResult topology)
 		{
 			Resources = resources;
@@ -33,7 +33,7 @@ namespace Common.LoadFlow
 
 		public string GenerateDSSScript()
 		{
-
+			Logger.LogInformation($"Generating dss script for root 0x{Topology.RootId:X16} started.");
 			string dssScript = null;
 			if (Resources == null || Topology == null)
 			{
@@ -43,27 +43,13 @@ namespace Common.LoadFlow
 			StringBuilder stringBuilder = new StringBuilder();
 			stringBuilder.AppendLine($"Clear{Environment.NewLine}");
 
-			//TODO: za sada ovako izvlacenje source elemenata
-			ResourceDescription root = null;
-			long rootGid = Topology.Nodes[0].Lid;
-			if (!Resources.ContainsKey(rootGid))
-			{
-				Logger.LogError($"Energy source is not presented in resources");
-				return dssScript;
-			}
-
-			root = Resources[rootGid];
-
-			GenerateScriptLineForRoot(root, stringBuilder);
-
-			if ((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rootGid) != DMSType.ENERGYSOURCE)
-			{
-				Logger.LogError($"Element is not energy source. Check topology result");
-				return dssScript;
-			}
 
 			for (int i = 0; i < Topology.Branches.Count; i++)
 			{
+				if (Topology.Branches[i].OwnerCircuit[0] != Topology.RootId)
+				{
+					continue;
+				}
 				ResourceDescription rd = null;
 				//TODO: nije bas najbolje, pretopostavka da je u topology result grana za granom
 				if(Topology.Branches[i] is MPConnectivityBranch connectivityBranch && Topology.Branches[i + 1] is MPConnectivityBranch connectivityBranch2)
@@ -75,25 +61,25 @@ namespace Common.LoadFlow
 				}
 				else if (Topology.Branches[i] is MPConnectivityBranch && !(Topology.Branches[i + 1] is MPConnectivityBranch))
 				{
-					string message = $"Branch with lid {Topology.Branches[i]} is connectivity branch, but next branc is not.";
+					string message = $"Branch with lid {Topology.Branches[i]} is connectivity branch, but next branch is not.";
 					Logger.LogError(message);
 					throw new Exception(message);
 				}
-
 
 				rd = Resources[Topology.Branches[i].Lid];
 				GenerateScriptLineForElement(rd, stringBuilder, Topology.Branches[i]);
 			}
 
-			//foreach (MPBranch branch in Topology.Branches)
-			//{
-			//	ResourceDescription rd = Resources[branch.Lid];
+			if (!rootInitialized)
+			{
+				string message = "Initializing of open dss script failed becasue root was not initialized.";
+				Logger.LogError(message);
+				throw new Exception(message);
+			}
 
-			//	GenerateScriptLineForElement(rd, stringBuilder, branch);
-			//}
 
 			dssScript = stringBuilder.ToString();
-
+			Logger.LogInformation($"Generating dss script for root 0x{Topology.RootId:X16} finished.");
 			return dssScript;
 		}
 
@@ -108,7 +94,7 @@ namespace Common.LoadFlow
 					GenerateScriptLineForEnergyConsumer(rd, branch, sb);
 					break;
 				case DMSType.ENERGYSOURCE:
-					Logger.LogInformation("Energy source skipped.");
+					GenerateScriptLineForRoot(rd, branch, sb);
 					break;
 				case DMSType.POWERTRANSFORMER:
 					GenerateScriptLineForTransformer(rd, branch, sb);
@@ -125,8 +111,13 @@ namespace Common.LoadFlow
 			}
 		}
 
-		private void GenerateScriptLineForRoot(ResourceDescription rootElement, StringBuilder sb)
+		private void GenerateScriptLineForRoot(ResourceDescription rootElement, MPBranch branch, StringBuilder sb)
 		{
+			if (rootElement.Id != Topology.RootId) //Nije odgovarajuci root
+			{
+				return;
+			}
+
 			long rootBVGid = rootElement.GetProperty(ModelCode.CONDEQ_BASVOLTAGE).AsReference();
 			ResourceDescription baseVoltageRD = Resources[rootBVGid];
 
@@ -138,12 +129,14 @@ namespace Common.LoadFlow
 			float r0 = rootElement.GetProperty(ModelCode.ENERGYSOURCE_R0).AsFloat();
 
 
-			long nodeId = Topology.Branches[0].DownNode[0];
+			long nodeId = branch.DownNode[0];
 			ResourceDescription connNode = Resources[nodeId];
 
 			string connNodeMRID = connNode.GetProperty(ModelCode.IDOBJ_MRID).AsString();
 
 			sb.AppendLine($"new object=circuit.OpenDSSTest basekv={baseVoltage} pu=1 angle={angle} frequency=60.0 R0={r0} R1={r} X0={x0} X={x} bus2={connNodeMRID}");
+
+			rootInitialized = true;
 		}
 
 		private void GenerateScriptLineForLineSegment(ResourceDescription acLineSegmentElement, MPBranch branch, StringBuilder sb)
