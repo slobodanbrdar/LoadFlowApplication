@@ -43,9 +43,6 @@ namespace LoadFlowManagerService
 
 		public async Task StartLoadFlowSolving()
 		{
-			//1. Preuzeti sve korene DONE
-			//2. Preuzeti broj particija na lf solveru DONE
-			//3. Za svaki koren pozvati solve lf
 
 			List<long> rootIds = (await ModelAccessContract.GetRootIDs()).ToList();
 
