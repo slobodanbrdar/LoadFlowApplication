@@ -57,10 +57,10 @@ namespace SchemaGenerator
 		private static void GenerateSchema(int numberOfRoots, int minNodes, int maxNodes)
 		{
 			StringBuilder builder = new StringBuilder();
-			builder.AppendLine("<?xml version=\"1.0\" encoding=\"UTF - 8\"?>");
+			builder.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			builder.AppendLine("<rdf:RDF	xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"");
-			builder.AppendLine("\t\t\trdf:RDF	xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"");
-			builder.AppendLine("\t\t\txmlns:ftn=\"http://www.ftnydro.com/CIM15/2010/extension#\"");
+			builder.AppendLine("\t\t\txmlns:cim=\"http://iec.ch/TC57/2010/CIM-schema-cim15#\"");
+			builder.AppendLine("\t\t\txmlns:ftn=\"http://www.ftnydro.com/CIM15/2010/extension#\">");
 
 			builder.AppendLine(GenerateBaseVoltages());
 
@@ -196,10 +196,12 @@ namespace SchemaGenerator
 			StringBuilder transformerBuiler = new StringBuilder();
 			StringBuilder transformerEndBuiler = new StringBuilder();
 			StringBuilder acLineSegmentBuilder = new StringBuilder();
+			StringBuilder energyConsumerBuilder = new StringBuilder();
 
 			int terminalCounter = 1;
 			int transformerCounter = 1;
 			int acLineSegmentCounter = 1;
+			int energyConsumerCounter = 1;
 
 			for (int i = 1; i <= numberOfRoots; i++)
 			{
@@ -215,8 +217,10 @@ namespace SchemaGenerator
 				GenerateTransformerEnd(transformerEndBuiler, transformerCounter, 1);
 				GenerateTransformerEnd(transformerEndBuiler, transformerCounter, 2);
 
+				GenerateElementTerminal(terminalsBuilder, terminalCounter++, $"PT_{transformerCounter}", hanhingNode);
 				int endNode = hangingNodes[0];
 				hangingNodes.RemoveAt(0);
+
 				GenerateElementTerminal(terminalsBuilder, terminalCounter++, $"PT_{transformerCounter}", endNode);
 				transformerCounter++;
 
@@ -229,14 +233,27 @@ namespace SchemaGenerator
 					connectedNodes.RemoveAt(nodeIndex);
 					int nodeBranchesCount = GetNodeBranchesCount();
 
+					bool energyConsumerExists = false;
+
 					for (int j = 1; j <= nodeBranchesCount && hangingNodes.Count > 0; j++)
 					{
 						endNode = hangingNodes[0];
 						hangingNodes.RemoveAt(0);
 
+						if (nodeBranchesCount > 1 && RANDOM.Next(0, 100) < 20 && !energyConsumerExists) //20% sanse za ec na srednjem naponu
+						{
+							GenerateEnergyConsumer(energyConsumerBuilder, "BV_2", energyConsumerCounter);
+							GenerateElementTerminal(terminalsBuilder, terminalCounter++, $"EC_{energyConsumerCounter}", startNode);
+							GenerateElementTerminal(terminalsBuilder, terminalCounter++, $"EC_{energyConsumerCounter}", endNode);
+
+							energyConsumerCounter++;
+							energyConsumerExists = true;
+							continue;
+						}
+
 						GenerateACLineSegment(acLineSegmentBuilder, acLineSegmentCounter);
-						GenerateElementTerminal(terminalsBuilder, terminalCounter++, $"ACL{acLineSegmentCounter}", startNode);
-						GenerateElementTerminal(terminalsBuilder, terminalCounter++, $"ACL{acLineSegmentCounter}", endNode);
+						GenerateElementTerminal(terminalsBuilder, terminalCounter++, $"ACL_{acLineSegmentCounter}", startNode);
+						GenerateElementTerminal(terminalsBuilder, terminalCounter++, $"ACL_{acLineSegmentCounter}", endNode);
 
 						acLineSegmentCounter++;
 						connectedNodes.Add(endNode);
@@ -257,11 +274,38 @@ namespace SchemaGenerator
 			branchBuilder.AppendLine(acLineSegmentBuilder.ToString());
 			branchBuilder.AppendLine("<!--END ACLineSegments-->");
 
+			branchBuilder.AppendLine("<!--EnergyConsumers-->");
+			branchBuilder.AppendLine(energyConsumerBuilder.ToString());
+			branchBuilder.AppendLine("<!--END EnergyConsumers-->");
+
 			branchBuilder.AppendLine("<!--Terminals-->");
 			branchBuilder.AppendLine(terminalsBuilder.ToString());
 			branchBuilder.AppendLine("<!--END Terminals-->");
 
 			return branchBuilder.ToString();
+		}
+
+		private static void GenerateEnergyConsumer(StringBuilder energyConsumerBuilder, string baseVoltageId, int energyConsumerCounter)
+		{
+			string connKind = RANDOM.Next(0, 100) > 50 ? "Y" : "D";
+			string baseString = "\t\t";
+
+			int powerMultiplier = 1000000; //za srednji napon (BV_2)
+			if (baseVoltageId == "BV_3") //za niski napon
+			{
+				powerMultiplier = 1000;
+			}
+
+			energyConsumerBuilder.AppendLine($"{baseString}<cim:EnergyConsumer rdf:ID=\"EC_{energyConsumerCounter}\">");
+			energyConsumerBuilder.AppendLine($"{baseString}\t<cim:EnergyConsumer.grounded>{connKind}</cim:EnergyConsumer.grounded>");
+			energyConsumerBuilder.AppendLine($"{baseString}\t<cim:EnergyConsumer.pfixed>{RANDOM.Next(1, 50) * powerMultiplier}</cim:EnergyConsumer.pfixed>");
+			energyConsumerBuilder.AppendLine($"{baseString}\t<cim:EnergyConsumer.pfixedPct>{RANDOM.Next(80, 100)}</cim:EnergyConsumer.pfixedPct>");
+			energyConsumerBuilder.AppendLine($"{baseString}\t<cim:EnergyConsumer.phaseConnection>{connKind}</cim:EnergyConsumer.phaseConnection>");
+			energyConsumerBuilder.AppendLine($"{baseString}\t<cim:ConductingEquipment.BaseVoltage rdf:resource=\"#{baseVoltageId}\"/>");
+			energyConsumerBuilder.AppendLine($"{baseString}\t<cim:IdentifiedObject.aliasName>EnergyConsumer{energyConsumerCounter}</cim:IdentifiedObject.aliasName>");
+			energyConsumerBuilder.AppendLine($"{baseString}\t<cim:IdentifiedObject.mRID>EC_{energyConsumerCounter}</cim:IdentifiedObject.mRID>");
+			energyConsumerBuilder.AppendLine($"{baseString}\t<cim:IdentifiedObject.name>EC_{energyConsumerCounter}</cim:IdentifiedObject.name>");
+			energyConsumerBuilder.AppendLine($"{baseString}</cim:EnergyConsumer>");
 		}
 
 		private static void GenerateACLineSegment(StringBuilder acLineSegmentBuilder, int acLineSegmentCounter)
