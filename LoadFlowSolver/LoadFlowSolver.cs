@@ -39,7 +39,7 @@ namespace LoadFlowSolver
 
 		public async Task SolveLoadFlow(long rootId)
 		{
-			Logger.LogInformation($"LoadFlowSolver.SolveLoadFlow started. Partition id = {Context.PartitionId}");
+			Logger.LogInformation($"LoadFlowSolver.SolveLoadFlow for root 0x{rootId:X16} started. Partition id = {Context.PartitionId}");
 
 			ExecutionReport executionReport = await ModelAccessContract.GetOpenDSSScript(rootId);
 
@@ -58,7 +58,7 @@ namespace LoadFlowSolver
 				return;
 			}
 
-			DSSObject.Text.Command = "Clear";
+			//DSSObject.Text.Command = "Clear";
 
 			List<string> commands = executionReport.Message.Split('\n').ToList();
 
@@ -66,16 +66,18 @@ namespace LoadFlowSolver
 			{
 				DSSObject.Text.Command = command.Replace("\r", "");
 			}
+
+			Logger.LogInformation($"Entering commands for root 0x{rootId:x16} finished.");
 			
 			DSSObject.ActiveCircuit.Solution.Solve();
 
 			if (DSSObject.ActiveCircuit.Solution.Converged)
 			{
-				Logger.LogInformation("Solution converged");
+				Logger.LogInformation($"Solution for root 0x{rootId:x16} converged");
 			}
 			else
 			{
-				Logger.LogInformation("Solution did not converge.");
+				Logger.LogInformation($"Solution did for root 0x{rootId:x16} not converge.");
 			}
 
 		}

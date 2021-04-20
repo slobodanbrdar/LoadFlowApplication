@@ -14,6 +14,14 @@ namespace SchemaGenerator
 
 		private static Dictionary<int, List<int>> HangingNodes = new Dictionary<int, List<int>>();
 
+		private static Dictionary<int, List<int>> UnconnectedNodes = new Dictionary<int, List<int>>();
+
+		private static int terminalCounter = 1;
+		private static int transformerCounter = 1;
+		private static int acLineSegmentCounter = 1;
+		private static int energyConsumerCounter = 1;
+		private static int nodeCounter = 1;
+
 
 		static void Main(string[] args)
 		{
@@ -69,6 +77,8 @@ namespace SchemaGenerator
 			builder.AppendLine(GenerateNodes(numberOfRoots, minNodes, maxNodes));
 
 			builder.AppendLine(GenerateBranches(numberOfRoots));
+
+			builder.AppendLine(GenerateLowVoltageLoads(numberOfRoots));
 
 			builder.AppendLine("</rdf:RDF>");
 			File.WriteAllText($"..\\..\\..\\Resources\\LoadFlow_{numberOfRoots}Roots.xml", builder.ToString());
@@ -152,7 +162,7 @@ namespace SchemaGenerator
 			StringBuilder nodeBuilder = new StringBuilder();
 
 			nodeBuilder.AppendLine("<!--ConnectivityNodes-->");
-			int nodeCounter = 1;
+			
 			for (int i = 1; i <= numberOfRoots; i++)
 			{
 				int nodeCount = RANDOM.Next(minNodes, maxNodes);
@@ -198,10 +208,7 @@ namespace SchemaGenerator
 			StringBuilder acLineSegmentBuilder = new StringBuilder();
 			StringBuilder energyConsumerBuilder = new StringBuilder();
 
-			int terminalCounter = 1;
-			int transformerCounter = 1;
-			int acLineSegmentCounter = 1;
-			int energyConsumerCounter = 1;
+			
 
 			for (int i = 1; i <= numberOfRoots; i++)
 			{
@@ -213,9 +220,9 @@ namespace SchemaGenerator
 				GenerateElementTerminal(terminalsBuilder, terminalCounter++, $"ES_{i}", hanhingNode);
 
 				//Svaki source na pocetku ima transformator (VN/SN)
-				GenerateTransformer(transformerBuiler, transformerCounter);
-				GenerateTransformerEnd(transformerEndBuiler, transformerCounter, 1);
-				GenerateTransformerEnd(transformerEndBuiler, transformerCounter, 2);
+				GenerateTransformer(transformerBuiler, "BV_1", transformerCounter);
+				GenerateTransformerEnd(transformerEndBuiler, transformerCounter, 115000, 1);
+				GenerateTransformerEnd(transformerEndBuiler, transformerCounter, 12470, 2);
 
 				GenerateElementTerminal(terminalsBuilder, terminalCounter++, $"PT_{transformerCounter}", hanhingNode);
 				int endNode = hangingNodes[0];
@@ -225,12 +232,18 @@ namespace SchemaGenerator
 				transformerCounter++;
 
 				connectedNodes.Add(endNode);
-
+				List<int> unconnectedNodes = new List<int>();
 				while (connectedNodes.Count > 0)
 				{
 					int nodeIndex = RANDOM.Next(connectedNodes.Count);
 					int startNode = connectedNodes[nodeIndex];
 					connectedNodes.RemoveAt(nodeIndex);
+
+					if (hangingNodes.Count == 0)
+					{
+						unconnectedNodes.Add(startNode);
+					}
+
 					int nodeBranchesCount = GetNodeBranchesCount();
 
 					bool energyConsumerExists = false;
@@ -260,6 +273,8 @@ namespace SchemaGenerator
 					}
 				}
 
+				UnconnectedNodes.Add(i, unconnectedNodes);
+
 			}
 
 			branchBuilder.AppendLine("<!--Transformers-->");
@@ -283,6 +298,75 @@ namespace SchemaGenerator
 			branchBuilder.AppendLine("<!--END Terminals-->");
 
 			return branchBuilder.ToString();
+		}
+
+
+		private static string GenerateLowVoltageLoads(int numberOfRoots)
+		{
+
+			StringBuilder loadBuilder = new StringBuilder();
+			StringBuilder energyConsumerBuilder = new StringBuilder();
+			StringBuilder nodeBuilder = new StringBuilder();
+			StringBuilder transformerBuilder = new StringBuilder();
+			StringBuilder transformerEndBuilder = new StringBuilder();
+			StringBuilder terminalBuilder = new StringBuilder();
+
+			for (int i = 1; i <= numberOfRoots; i++)
+			{
+				List<int> unconnectedNodes = UnconnectedNodes[i];
+
+				while (unconnectedNodes.Count > 0)
+				{
+					int startNode = unconnectedNodes[0];
+					unconnectedNodes.RemoveAt(0);
+
+					int endNode = nodeCounter;
+					nodeBuilder.AppendLine(GenerateNode(endNode));
+
+					GenerateTransformer(transformerBuilder, "BV_2", transformerCounter);
+					GenerateTransformerEnd(transformerEndBuilder, transformerCounter, 12470, 1);
+					GenerateTransformerEnd(transformerEndBuilder, transformerCounter, 4500, 2);
+
+					GenerateElementTerminal(terminalBuilder, terminalCounter++, $"PT_{transformerCounter}", startNode);
+					GenerateElementTerminal(terminalBuilder, terminalCounter++, $"PT_{transformerCounter}", endNode);
+
+					nodeCounter++;
+					transformerCounter++;
+					int numberOfLoads = GetLowVoltageLoadsCount();
+
+					for (int j = 1; j <= numberOfLoads; j++)
+					{
+						GenerateEnergyConsumer(energyConsumerBuilder, "BV_3", energyConsumerCounter);
+						int loadEndNode = nodeCounter;
+						nodeBuilder.AppendLine(GenerateNode(loadEndNode));
+
+						GenerateElementTerminal(terminalBuilder, terminalCounter++, $"EC_{energyConsumerCounter}", endNode);
+						GenerateElementTerminal(terminalBuilder, terminalCounter++, $"EC_{energyConsumerCounter}", loadEndNode);
+
+						nodeCounter++;
+						energyConsumerCounter++;
+					}
+
+				}
+			}
+
+			loadBuilder.AppendLine("<!--AdditionalTransformers-->");
+			loadBuilder.AppendLine(transformerBuilder.ToString());
+			loadBuilder.AppendLine("<!--END AdditionalTransformers-->");
+			loadBuilder.AppendLine("<!--AdditionalTransformerEnds-->");
+			loadBuilder.AppendLine(transformerEndBuilder.ToString());
+			loadBuilder.AppendLine("<!--END AdditionalTransformerEnds-->");
+			loadBuilder.AppendLine("<!--AdditionalEnergyConsumers-->");
+			loadBuilder.AppendLine(energyConsumerBuilder.ToString());
+			loadBuilder.AppendLine("<!--END AdditionalEnergyConsumers-->");
+			loadBuilder.AppendLine("<!--AdditionalConnectivityNodes-->");
+			loadBuilder.AppendLine(nodeBuilder.ToString());
+			loadBuilder.AppendLine("<!--END AdditionalConnectivityNodes-->");
+			loadBuilder.AppendLine("<!--AdditionalTerminals-->");
+			loadBuilder.AppendLine(terminalBuilder.ToString());
+			loadBuilder.AppendLine("<!--END AdditionalTerminals-->");
+
+			return loadBuilder.ToString();
 		}
 
 		private static void GenerateEnergyConsumer(StringBuilder energyConsumerBuilder, string baseVoltageId, int energyConsumerCounter)
@@ -345,10 +429,11 @@ namespace SchemaGenerator
 		}
 
 
-		private static void GenerateTransformer(StringBuilder transformerBuilder, int transformerCounter)
+		private static void GenerateTransformer(StringBuilder transformerBuilder, string baseVoltageId, int transformerCounter)
 		{
 			string baseString = "\t\t";
 			transformerBuilder.AppendLine($"{baseString}<cim:PowerTransformer rdf:ID=\"PT_{transformerCounter}\">");
+			transformerBuilder.AppendLine($"{baseString}\t<cim:ConductingEquipment.BaseVoltage rdf:resource=\"#{baseVoltageId}\"/>");
 			transformerBuilder.AppendLine($"{baseString}\t<cim:IdentifiedObject.aliasName>PowerTransformer{transformerCounter}</cim:IdentifiedObject.aliasName>");
 			transformerBuilder.AppendLine($"{baseString}\t<cim:IdentifiedObject.mRID>PT_{transformerCounter}</cim:IdentifiedObject.mRID>");
 			transformerBuilder.AppendLine($"{baseString}\t<cim:IdentifiedObject.name>PT_{transformerCounter}</cim:IdentifiedObject.name>");
@@ -356,9 +441,8 @@ namespace SchemaGenerator
 			transformerBuilder.AppendLine();
 		}
 
-		private static void GenerateTransformerEnd(StringBuilder transformerEndBuilder, int transformerCounter, int endNumber)
+		private static void GenerateTransformerEnd(StringBuilder transformerEndBuilder, int transformerCounter, int ratedU, int endNumber)
 		{
-			int ratedU = endNumber == 1 ? 115000 : 12470;
 
 			string connKind = RANDOM.Next(0, 100) > 50 ? "Y" : "D"; //50:50
 
@@ -384,6 +468,28 @@ namespace SchemaGenerator
 
 		}
 
+		
+
+		private static int GetLowVoltageLoadsCount()
+		{
+			int rnd = RANDOM.Next(100);
+			if (rnd < 10) //10%
+			{
+				return 1;
+			}
+			else if (rnd < 40) //30%
+			{
+				return 2;
+			}
+			else if (rnd < 80) //40%
+			{
+				return 3;
+			}
+			else //20%
+			{
+				return 4;
+			}
+		}
 
 		private static int GetNodeBranchesCount()
 		{

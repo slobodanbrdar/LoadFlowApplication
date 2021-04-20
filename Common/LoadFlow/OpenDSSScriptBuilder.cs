@@ -118,6 +118,7 @@ namespace Common.LoadFlow
 				return;
 			}
 
+			string rootMrid = rootElement.GetProperty(ModelCode.IDOBJ_MRID).AsString();
 			long rootBVGid = rootElement.GetProperty(ModelCode.CONDEQ_BASVOLTAGE).AsReference();
 			ResourceDescription baseVoltageRD = Resources[rootBVGid];
 
@@ -134,7 +135,7 @@ namespace Common.LoadFlow
 
 			string connNodeMRID = connNode.GetProperty(ModelCode.IDOBJ_MRID).AsString();
 
-			sb.AppendLine($"new object=circuit.OpenDSSTest basekv={baseVoltage} pu=1 angle={angle} frequency=60.0 R0={r0} R1={r} X0={x0} X={x} bus2={connNodeMRID}");
+			sb.AppendLine($"new object=circuit.{rootMrid} basekv={baseVoltage} pu=1 angle={angle} frequency=60.0 R0={r0} R1={r} X0={x0} X={x} bus2={connNodeMRID}");
 
 			rootInitialized = true;
 		}
