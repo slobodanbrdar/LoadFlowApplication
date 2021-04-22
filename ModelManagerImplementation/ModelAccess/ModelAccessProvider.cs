@@ -90,6 +90,8 @@ namespace ModelManagerImplementation.ModelAccess
 				SaveNetworkModelElements(otherCimElements),
 			};
 
+			
+
 			InternalModelBuilderCIM internalModelBuilder = new InternalModelBuilderCIM(new CModelFramework());
 
 			internalModelBuilder.ReadSources(energySources, terminals);
@@ -286,13 +288,12 @@ namespace ModelManagerImplementation.ModelAccess
 
 			using (ITransaction tx = this.stateManager.CreateTransaction())
 			{
-				List<Task> tasks = new List<Task>();
+
 				foreach (TopologyResult topologyResult in topologyResults)
 				{
-					tasks.Add(reliableDictionary.AddOrUpdateAsync(tx, topologyResult.RootId, topologyResult, (key, value) => topologyResult));
+					await reliableDictionary.AddOrUpdateAsync(tx, topologyResult.RootId, topologyResult, (key, value) => topologyResult);
 				}
 
-				await Task.WhenAll(tasks);
 				await tx.CommitAsync();
 			}
 		}

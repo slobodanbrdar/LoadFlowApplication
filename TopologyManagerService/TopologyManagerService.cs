@@ -30,17 +30,27 @@ namespace TopologyManagerService
 
 			int index = 0;
 
-			foreach(var root in internalModel.Roots)
+			//for (int i = 0; i < 50; i++)
+			//{
+			//	int partitionKey = GetPartitionKey(i);
+			//	ITopologyAnalyzer topologyAnalyzer = TopologyAnalyzerClient.CreateClient(partitionKey);
+			//	topologyTasks.Add(topologyAnalyzer.AnalyzeTopology(internalModel, internalModel.Roots.First().Key));
+			//}
+
+			foreach (var root in internalModel.Roots)
 			{
 				int partitionKey = GetPartitionKey(index);
 				ITopologyAnalyzer topologyAnalyzer = TopologyAnalyzerClient.CreateClient(partitionKey);
 
 				topologyTasks.Add(topologyAnalyzer.AnalyzeTopology(internalModel, root.Key));
+				//topologyTasks[index].Start();
 
 				index++;
 			}
 
-			return (await Task.WhenAll(topologyTasks)).ToList();
+			List<TopologyResult> topologyResults = (await Task.WhenAll(topologyTasks)).ToList();
+
+			return topologyResults;
 		}
 
 		private int GetPartitionKey(int index)

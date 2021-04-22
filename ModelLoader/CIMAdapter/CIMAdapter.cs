@@ -16,6 +16,7 @@ using Microsoft.ServiceFabric.Services.Communication.Wcf.Client;
 using Common.GDAInterfaces;
 using Common.Clients;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace FTN.ESI.SIMES.CIM.CIMAdapter
 {
@@ -63,7 +64,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 
 		public async Task<string> ApplyUpdates(Delta delta)
 		{
-			Binding binding = WcfUtility.CreateTcpClientBinding();
+			Binding binding = WcfUtility.CreateTcpClientBinding(maxMessageSize: 1024 * 1024 * 1024);
 			ServicePartitionResolver servicePartitionResolver = new ServicePartitionResolver(() =>
 				new FabricClient());
 			WcfCommunicationClientFactory<INetworkModelGDAContract> communicationClientFactory = new WcfCommunicationClientFactory<INetworkModelGDAContract>(binding, servicePartitionResolver: servicePartitionResolver);

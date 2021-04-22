@@ -39,7 +39,7 @@ namespace TopologyAnalyzerService
 
 		public Task<TopologyResult> AnalyzeTopology(CModelFramework internalModel, long rootId)
 		{
-			ServiceEventSource.Current.ServiceMessage(this.Context, "TopologyStatelessService.Analyze started. PartitionID = {0}.", Context.PartitionId);
+			ServiceEventSource.Current.ServiceMessage(this.Context, $"TopologyStatelessService.Analyze started. PartitionID = {Context.PartitionId} Root id = 0x{rootId:x16}.");
 
 			// Create matrix model
 			CSparseMatrix matrixModel = new CSparseMatrix();
@@ -61,14 +61,22 @@ namespace TopologyAnalyzerService
 			{
 				topologyAnalyzer.UpdateRootTopology(root);
 			}
-			
-			
-			List<MPNode> nodes = topologyAnalyzer.InternalModel.Nodes.Values.ToList();
-			List<MPBranch> branches = topologyAnalyzer.InternalModel.Branches.Values.ToList();
 
-			ServiceEventSource.Current.ServiceMessage(this.Context, "TopologyStatelessService.Analyze finished.");
 
-			return Task.FromResult(new TopologyResult(nodes, branches, rootId));
+			List<MPNode> nodes = topologyAnalyzer.InternalModel.Nodes.Values.Where(node => node.OwnerCircuit[0] == rootId || node.Lid == rootId).ToList();
+			List<MPBranch> branches = topologyAnalyzer.InternalModel.Branches.Values.Where(branch => branch.OwnerCircuit[0] == rootId || branch.Lid == rootId).ToList();
+
+			ServiceEventSource.Current.ServiceMessage(this.Context, $"TopologyStatelessService.Analyze finished for root 0x{rootId:x16} Nodes: {nodes.Count} Branches: {branches.Count}");
+
+			try
+			{ 
+				return Task.FromResult(new TopologyResult(nodes, branches, rootId));
+			}
+			catch (Exception e)
+			{
+				ServiceEventSource.Current.ServiceMessage(this.Context, $"{e.Message}");
+				return null;
+			}
 		}
 
 		/// <summary>

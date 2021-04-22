@@ -37,10 +37,12 @@ namespace LoadFlowSolver
 			this.logger = CloudLoggerFactory.GetLogger(ServiceEventSource.Current, context);
 		}
 
+		private object lockObject = new object();
+
 		public async Task SolveLoadFlow(long rootId)
 		{
-			Logger.LogInformation($"LoadFlowSolver.SolveLoadFlow for root 0x{rootId:X16} started. Partition id = {Context.PartitionId}");
-
+			Logger.LogInformation($"LoadFlowSolver.SolveLoadFlow for root 0x{rootId:X16} started. Partition id = {Context.PartitionId}.");
+			
 			ExecutionReport executionReport = await ModelAccessContract.GetOpenDSSScript(rootId);
 
 			if (executionReport.Status == ExecutionStatus.ERROR)
@@ -62,14 +64,19 @@ namespace LoadFlowSolver
 
 			List<string> commands = executionReport.Message.Split('\n').ToList();
 
-			foreach (string command in commands)
+			lock (lockObject)
 			{
-				DSSObject.Text.Command = command.Replace("\r", "");
-			}
+				foreach (string command in commands)
+				{
+					DSSObject.Text.Command = command.Replace("\r", "");
+				}
 
-			Logger.LogInformation($"Entering commands for root 0x{rootId:x16} finished.");
+				Logger.LogInformation($"Entering commands for root 0x{rootId:x16} finished.");
+
+				DSSObject.ActiveCircuit.Solution.Solve();
+			}
 			
-			DSSObject.ActiveCircuit.Solution.Solve();
+
 
 			if (DSSObject.ActiveCircuit.Solution.Converged)
 			{

@@ -62,6 +62,7 @@ namespace LoadFlowManagerService
 				loadFlowTasks.Add(loadFlowSolver.SolveLoadFlow(rootId));
 
 				index++;
+				
 			}
 
 			await Task.WhenAll(loadFlowTasks);

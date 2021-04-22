@@ -54,7 +54,7 @@ namespace NMSGdaService
 				{
 					return new WcfCommunicationListener<INetworkModelGDAContract>(context,
 																				  genericDataAccess,
-																				  WcfUtility.CreateTcpListenerBinding(),
+																				  WcfUtility.CreateTcpListenerBinding(maxMessageSize: 1024 * 1024 * 1024),
 																				  "NMSGdaServiceEndpoint");
 
 				}, "NMSGdaServiceEndpoint")
