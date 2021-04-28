@@ -8,6 +8,7 @@ using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Fabric;
 using System.Linq;
 using System.Threading;
@@ -43,7 +44,7 @@ namespace LoadFlowManagerService
 
 		public async Task StartLoadFlowSolving()
 		{
-
+			Stopwatch sw = Stopwatch.StartNew();
 			List<long> rootIds = (await ModelAccessContract.GetRootIDs()).ToList();
 
 			Logger.LogInformation($"Number of roots is: {rootIds.Count}");
@@ -67,7 +68,8 @@ namespace LoadFlowManagerService
 
 			await Task.WhenAll(loadFlowTasks);
 
-			Logger.LogInformation("Solving of load flow successfully finished.");
+			sw.Stop();
+			Logger.LogInformation($"Solving of load flow successfully finished in: {sw.Elapsed}.");
 
 		}
 

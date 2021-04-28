@@ -30,41 +30,51 @@ namespace LoadFlowSolver
 		{
 			get { return logger ?? (logger = CloudLoggerFactory.GetLogger()); }
 		}
+
+		private List<bool> isActorInUse;
+
+		private DSS DSSObject;
+		private Circuit DSSCircuit;
+		private Solution DSSSolution;
 		private IModelAccessContract ModelAccessContract { get { return ModelAccessClient.CreateClient(); } }
 		public LoadFlowSolver(StatefulServiceContext context)
 			: base(context)
 		{
 			this.logger = CloudLoggerFactory.GetLogger(ServiceEventSource.Current, context);
-		}
 
-		private object lockObject = new object();
+			DSSObject = new DSS();
 
-		public async Task SolveLoadFlow(long rootId)
-		{
-			Logger.LogInformation($"LoadFlowSolver.SolveLoadFlow for root 0x{rootId:X16} started. Partition id = {Context.PartitionId}.");
-			
-			ExecutionReport executionReport = await ModelAccessContract.GetOpenDSSScript(rootId);
-
-			if (executionReport.Status == ExecutionStatus.ERROR)
-			{
-				Logger.LogError($"Load flow error failed with error: {executionReport.Message}");
-			}
-
-			Logger.LogInformation($"{executionReport.Message}");
-
-			DSS DSSObject = new DSS();
-			
 			if (!(DSSObject.Start(0)))
 			{
 				Logger.LogError("DSS failed to start.");
 				return;
 			}
+			else
+			{
+				Logger.LogInformation($"DSS successfully started for partition {Context.PartitionId}.");
+			}
 
-			//DSSObject.Text.Command = "Clear";
+			DSSCircuit = DSSObject.ActiveCircuit;
+			DSSSolution = DSSCircuit.Solution;
+		}
 
+		private object lockObject = new object();
+		
+		public async Task SolveLoadFlow(long rootId)
+		{
+			Logger.LogInformation($"LoadFlowSolver.SolveLoadFlow for root 0x{rootId:X16} started. Partition id = {Context.PartitionId}. Thread id = {Thread.CurrentThread.ManagedThreadId}");
+
+			ExecutionReport executionReport = await ModelAccessContract.GetOpenDSSScript(rootId);
+			
+			if (executionReport.Status == ExecutionStatus.ERROR)
+			{
+				Logger.LogError($"Load flow error failed with error: {executionReport.Message}");
+			}
+
+			Logger.LogInformation($"0x{rootId:x16} => {executionReport.Message}");
+			
 			List<string> commands = executionReport.Message.Split('\n').ToList();
-
-			lock (lockObject)
+			lock (DSSObject)
 			{
 				foreach (string command in commands)
 				{
@@ -73,18 +83,21 @@ namespace LoadFlowSolver
 
 				Logger.LogInformation($"Entering commands for root 0x{rootId:x16} finished.");
 
-				DSSObject.ActiveCircuit.Solution.Solve();
-			}
+				DSSSolution.Solve();
 			
+				Logger.LogInformation($"Number of iteration for root 0x{rootId:x16} is {DSSSolution.Iterations}" +
+					$"Number of nodes = {DSSCircuit.NumNodes} number of circuit elements = {DSSCircuit.NumCktElements} number of buses = {DSSCircuit.NumBuses}");
 
+				if (DSSObject.ActiveCircuit.Solution.Converged)
+				{
+					string message = $"DSSCircuit name: {DSSCircuit.Name}";
+					Logger.LogInformation($"Solution for root 0x{rootId:x16} converged. Summary: {message}");
 
-			if (DSSObject.ActiveCircuit.Solution.Converged)
-			{
-				Logger.LogInformation($"Solution for root 0x{rootId:x16} converged");
-			}
-			else
-			{
-				Logger.LogInformation($"Solution did for root 0x{rootId:x16} not converge.");
+				}
+				else
+				{
+					Logger.LogWarning($"Solution for root 0x{rootId:x16} circuit name {DSSCircuit.Name} didn't converged. Number of iterations: {DSSSolution.Iterations}");
+				}
 			}
 
 		}

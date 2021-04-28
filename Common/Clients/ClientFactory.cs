@@ -24,10 +24,9 @@ namespace Common.Clients
 
 		}
 
-		public TContract CreateClient<TClient, TContract>(Uri serviceUri, ServiceType serviceType, string serviceKey = null, int partitionKey = 0) where TContract : class, IService
+		public TContract CreateClient<TClient, TContract>(Uri serviceUri, ServiceType serviceType, int partitionKey = 0) where TContract : class, IService
 																												where TClient : WcfSeviceFabricClientBase<TContract>
 		{
-			//TODO: ako bude trebalo service key resiti
 			var binding = WcfUtility.CreateTcpClientBinding();
 			var partitionResolver = ServicePartitionResolver.GetDefault();
 			var wcfClientFactory = new WcfCommunicationClientFactory<TContract>(clientBinding: binding,
@@ -43,7 +42,6 @@ namespace Common.Clients
 			}
 
 			TContract client = (TContract)Activator.CreateInstance(typeof(TClient), new object[] { wcfClientFactory, serviceUri, servicePartition });
-			//CheckIsAlive(client, serviceUri);
 
 			return client;
 		}
