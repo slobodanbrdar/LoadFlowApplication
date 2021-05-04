@@ -51,7 +51,6 @@ namespace Common.LoadFlow
 					continue;
 				}
 				ResourceDescription rd = null;
-				//TODO: nije bas najbolje, pretopostavka da je u topology result grana za granom
 				if(Topology.Branches[i] is MPConnectivityBranch connectivityBranch && Topology.Branches[i + 1] is MPConnectivityBranch connectivityBranch2)
 				{
 					rd = Resources[connectivityBranch.OriginalBranchLid];
@@ -283,7 +282,11 @@ namespace Common.LoadFlow
 
 			int numberOfPhases = GetPhaseNumber(terminals);
 
-			sb.AppendLine($"new Load.{energyConumerMrid} bus1={upNodeMrid} phases={numberOfPhases} kV={kv} kW={kw} kvar={kvar}");
+			PhaseShuntConnectionKind connKind = (PhaseShuntConnectionKind)energyConsumerElement.GetProperty(ModelCode.ENERGYCONSUMER_PHASECONNECTION).AsEnum();
+			string connKindString = GetStringFromShunConnectionKind(connKind);
+
+
+			sb.AppendLine($"new Load.{energyConumerMrid} bus1={upNodeMrid} phases={numberOfPhases} kV={kv} kW={kw} kvar={kvar} conn={connKindString}");
 		}
 
 		private void GenerateScriptLineForTransformer(ResourceDescription transformerElement, MPBranch branch, StringBuilder sb)
